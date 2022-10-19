@@ -40,9 +40,6 @@ const WebcamStreamCapture = () => {
       });
       const url = URL.createObjectURL(blob);
       setPreviewUrl()
-      
-      // window.URL.revokeObjectURL(url);
-      // setRecordedChunks([]);
     }
 
   }, [mediaRecorderRef, webcamRef, setCapturing]);
