@@ -1,104 +1,52 @@
-import { useRecordWebcam, CAMERA_STATUS } from "react-record-webcam";
-const OPTIONS = {
-  filename: "test-filename",
-  fileType: "mp4",
-  width: 640,
-  height: 480
-};
 
-
+import React, { useState } from 'react';
 
 function WebCamTest() {
-  const recordWebcam = useRecordWebcam(OPTIONS);
-  const getRecordingFileHooks = async () => {
-    const blob = await recordWebcam.getRecording();
-    console.log({ blob });
+  const [playing, setPlaying] = useState(false);
+
+  const HEIGHT = 500;
+  const WIDTH = 500;
+
+  const startVideo = () => {
+    setPlaying(true);
+    navigator.getUserMedia(
+      {
+        video: true,
+      },
+      (stream) => {
+        let video = document.getElementsByClassName("app__videoFeed")[0];
+        if (video) {
+          video.srcObject = stream;
+        }
+      },
+      (err) => console.error(err)
+    );
   };
 
-  const getRecordingFileRenderProp = async (blob) => {
-    console.log({ blob });
+  const stopVideo = () => {
+    setPlaying(false);
+    let video = document.getElementsByClassName("app__videoFeed")[0];
+    video.srcObject.getTracks()[0].stop();
   };
+
   return (
-    <div>
-      <p>Camera status: {recordWebcam.status}</p>
-      <div>
-        <button
-          disabled={
-            recordWebcam.status === CAMERA_STATUS.OPEN ||
-            recordWebcam.status === CAMERA_STATUS.RECORDING ||
-            recordWebcam.status === CAMERA_STATUS.PREVIEW
-          }
-          onClick={recordWebcam.open}
-        >
-          Open camera
-        </button>
-        <button
-          disabled={
-            recordWebcam.status === CAMERA_STATUS.CLOSED ||
-            recordWebcam.status === CAMERA_STATUS.PREVIEW
-          }
-          onClick={recordWebcam.close}
-        >
-          Close camera
-        </button>
-        <button
-          disabled={
-            recordWebcam.status === CAMERA_STATUS.CLOSED ||
-            recordWebcam.status === CAMERA_STATUS.RECORDING ||
-            recordWebcam.status === CAMERA_STATUS.PREVIEW
-          }
-          onClick={recordWebcam.start}
-        >
-          Start recording
-        </button>
-        <button
-          disabled={recordWebcam.status !== CAMERA_STATUS.RECORDING}
-          onClick={recordWebcam.stop}
-        >
-          Stop recording
-        </button>
-        <button
-          disabled={recordWebcam.status !== CAMERA_STATUS.PREVIEW}
-          onClick={recordWebcam.retake}
-        >
-          Retake
-        </button>
-        <button
-          disabled={recordWebcam.status !== CAMERA_STATUS.PREVIEW}
-          onClick={recordWebcam.download}
-        >
-          Download
-        </button>
-        <button
-          disabled={recordWebcam.status !== CAMERA_STATUS.PREVIEW}
-          onClick={getRecordingFileHooks}
-        >
-          Get recording
-        </button>
+    <div className="app">
+      <div className="app__container">
+        <video
+          height={HEIGHT}
+          width={WIDTH}
+          muted
+          autoPlay
+          className="app__videoFeed"
+        ></video>
       </div>
-
-      <video
-        ref={recordWebcam.webcamRef}
-        style={{
-          display: `${
-            recordWebcam.status === CAMERA_STATUS.OPEN ||
-            recordWebcam.status === CAMERA_STATUS.RECORDING
-              ? "block"
-              : "none"
-          }`
-        }}
-        autoPlay
-        muted
-      />
-      <video
-        ref={recordWebcam.previewRef}
-        style={{
-          display: `${
-            recordWebcam.status === CAMERA_STATUS.PREVIEW ? "block" : "none"
-          }`
-        }}
-        controls
-      />
+      <div className="app__input">
+        {playing ? (
+          <button onClick={stopVideo}>Stop</button>
+        ) : (
+          <button onClick={startVideo}>Start</button>
+        )}
+      </div>
     </div>
   );
 }
