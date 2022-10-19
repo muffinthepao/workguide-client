@@ -3,6 +3,7 @@ import Webcam from "react-webcam";
 
 const WebcamStreamCapture = () => {
   const video = document.querySelector(".videoPreview")
+  const mirror = document.querySelector(".mirror")
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const [capturing, setCapturing] = useState(false);
@@ -59,9 +60,16 @@ const WebcamStreamCapture = () => {
       // a.click();
       // window.URL.revokeObjectURL(url);
       // setRecordedChunks([]);
-      return (<video controls className="videoPreview" src={url}></video>)
+      return (
+        <>
+          <video controls loop className="videoPreview" src={url}></video>
+          <button>retake</button>
+        </>
+      )
     }
   }, [recordedChunks]);
+
+  const handleRetake = useCallback(() => {})
 
   return (
     <>
@@ -69,7 +77,7 @@ const WebcamStreamCapture = () => {
 
       {handleDownload()}
 
-      <Webcam audio={false} ref={webcamRef} />
+      <Webcam audio={false} ref={webcamRef} className="mirror" />
       {capturing ? (
         <button onClick={handleStopCaptureClick}>Stop Capture</button>
       ) : (
