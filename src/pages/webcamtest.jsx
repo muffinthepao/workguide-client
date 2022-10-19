@@ -1,106 +1,88 @@
-import { useRecordWebcam, CAMERA_STATUS } from "react-record-webcam";
-const OPTIONS = {
-  filename: "test-filename",
-  fileType: "mp4",
-  width: 640,
-  height: 480
+import React, {useRef, useState, useCallback} from "react";
+import Webcam from "react-webcam";
+
+const WebcamStreamCapture = () => {
+  const video = document.querySelector(".videoPreview")
+  const webcamRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const [capturing, setCapturing] = useState(false);
+  const [recordedChunks, setRecordedChunks] = useState([]);
+  const [previewUrl, setPreviewUrl] = useState("")
+
+  const handleStartCaptureClick = useCallback(() => {
+    setCapturing(true);
+    mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+      mimeType: "video/webm"
+    });
+    mediaRecorderRef.current.addEventListener(
+      "dataavailable",
+      handleDataAvailable
+    );
+    mediaRecorderRef.current.start();
+  }, [webcamRef, setCapturing, mediaRecorderRef]);
+
+  const handleDataAvailable = useCallback(
+    ({ data }) => {
+      if (data.size > 0) {
+        setRecordedChunks((prev) => prev.concat(data));
+      }
+    },
+    [setRecordedChunks]
+  );
+
+  const handleStopCaptureClick = useCallback(() => {
+    mediaRecorderRef.current.stop();
+    setCapturing(false);
+
+    if (recordedChunks.length) {
+      const blob = new Blob(recordedChunks, {
+        type: "video/mp4"
+      });
+      const url = URL.createObjectURL(blob);
+      setPreviewUrl()
+      
+      // window.URL.revokeObjectURL(url);
+      // setRecordedChunks([]);
+    }
+
+  }, [mediaRecorderRef, webcamRef, setCapturing]);
+
+
+  const handleDownload = useCallback(() => {
+    if (recordedChunks.length) {
+      const blob = new Blob(recordedChunks, {
+        type: "video/webm"
+      });
+      const url = URL.createObjectURL(blob);
+      // const a = document.createElement("a");
+      // document.body.appendChild(a);
+      // a.style = "display: none";
+      // a.href = url;
+      // a.download = "react-webcam-stream-capture.webm";
+      // a.click();
+      // window.URL.revokeObjectURL(url);
+      // setRecordedChunks([]);
+      return (<video controls className="videoPreview" src={url}></video>)
+    }
+  }, [recordedChunks]);
+
+  return (
+    <>
+      {/* <video controls className="videoPreview" src={}></video> */}
+
+      {handleDownload()}
+
+      <Webcam audio={false} ref={webcamRef} />
+      {capturing ? (
+        <button onClick={handleStopCaptureClick}>Stop Capture</button>
+      ) : (
+        <button onClick={handleStartCaptureClick}>Start Capture</button>
+      )}
+      {recordedChunks.length > 0 && (
+        <button onClick={handleDownload}>Preview</button>
+      )}
+    </>
+  );
 };
 
-
-
-function WebCamTest() {
-  const recordWebcam = useRecordWebcam(OPTIONS);
-  const getRecordingFileHooks = async () => {
-    const blob = await recordWebcam.getRecording();
-    console.log({ blob });
-  };
-
-  const getRecordingFileRenderProp = async (blob) => {
-    console.log({ blob });
-  };
-  return (
-    <div>
-      <p>Camera status: {recordWebcam.status}</p>
-      <div>
-        <button
-          disabled={
-            recordWebcam.status === CAMERA_STATUS.OPEN ||
-            recordWebcam.status === CAMERA_STATUS.RECORDING ||
-            recordWebcam.status === CAMERA_STATUS.PREVIEW
-          }
-          onClick={recordWebcam.open}
-        >
-          Open camera
-        </button>
-        <button
-          disabled={
-            recordWebcam.status === CAMERA_STATUS.CLOSED ||
-            recordWebcam.status === CAMERA_STATUS.PREVIEW
-          }
-          onClick={recordWebcam.close}
-        >
-          Close camera
-        </button>
-        <button
-          disabled={
-            recordWebcam.status === CAMERA_STATUS.CLOSED ||
-            recordWebcam.status === CAMERA_STATUS.RECORDING ||
-            recordWebcam.status === CAMERA_STATUS.PREVIEW
-          }
-          onClick={recordWebcam.start}
-        >
-          Start recording
-        </button>
-        <button
-          disabled={recordWebcam.status !== CAMERA_STATUS.RECORDING}
-          onClick={recordWebcam.stop}
-        >
-          Stop recording
-        </button>
-        <button
-          disabled={recordWebcam.status !== CAMERA_STATUS.PREVIEW}
-          onClick={recordWebcam.retake}
-        >
-          Retake
-        </button>
-        <button
-          disabled={recordWebcam.status !== CAMERA_STATUS.PREVIEW}
-          onClick={recordWebcam.download}
-        >
-          Download
-        </button>
-        <button
-          disabled={recordWebcam.status !== CAMERA_STATUS.PREVIEW}
-          onClick={getRecordingFileHooks}
-        >
-          Get recording
-        </button>
-      </div>
-
-      <video
-        ref={recordWebcam.webcamRef}
-        style={{
-          display: `${
-            recordWebcam.status === CAMERA_STATUS.OPEN ||
-            recordWebcam.status === CAMERA_STATUS.RECORDING
-              ? "block"
-              : "none"
-          }`
-        }}
-        autoPlay
-        muted
-      />
-      <video
-        ref={recordWebcam.previewRef}
-        style={{
-          display: `${
-            recordWebcam.status === CAMERA_STATUS.PREVIEW ? "block" : "none"
-          }`
-        }}
-        controls
-      />
-    </div>
-  );
-}
-
-export default WebCamTest;
+export default WebcamStreamCapture;
