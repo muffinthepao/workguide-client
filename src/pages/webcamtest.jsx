@@ -1,13 +1,17 @@
+import axios from "axios";
 import React, { useRef, useState } from "react";
+import { toast } from "react-toastify";
 import Webcam from "react-webcam";
 
 const WebcamStreamCapture = () => {
-  // const video = document.querySelector(".videoPreview");
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [previewUrl, setPreviewUrl] = useState("");
+
+  const questionId = 1;
+  const baseAnswerURL = `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers`;
 
   const handleStartRecording = () => {
     setCapturing(true);
@@ -48,14 +52,27 @@ const WebcamStreamCapture = () => {
     setPreviewUrl("");
   };
 
-  // const handleSubmit = () => {
-  //   //formdata()
-  //   // {
-  //   // video data + userId +
-  //   //}
-  //   // so userId, etc will remain in req.body
-  //   // video data will go to req.files
-  // };
+  const handleSubmit = async () => {
+    //formdata()
+    // {
+    // video data + userId +
+    //}
+    // so userId, etc will remain in req.body
+    // video data will go to req.files
+
+    console.log("clicked submit")
+
+    try {
+      const response = await axios.post(baseAnswerURL);
+
+      if (response.status === 200 || response.status === 201) {
+        toast.success("Answer Submitted");
+      }
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  };
 
   return (
     <>
@@ -71,18 +88,18 @@ const WebcamStreamCapture = () => {
         <div>
           <video controls className="videoPreview" src={previewUrl}></video>
           <button onClick={handleRetake}>Retake</button>
+          <button onClick={handleSubmit}>Submit</button>
         </div>
       ) : (
         <div>
-            <Webcam audio={false} ref={webcamRef} />
-            {capturing ? (
-              <button onClick={handleStopRecording}>Stop Capture</button>
-            ) : (
-              <button onClick={handleStartRecording}>Start Capture</button>
-            )}
+          <Webcam audio={false} ref={webcamRef} />
+          {capturing ? (
+            <button onClick={handleStopRecording}>Stop Capture</button>
+          ) : (
+            <button onClick={handleStartRecording}>Start Capture</button>
+          )}
         </div>
       )}
-
     </>
   );
 };
