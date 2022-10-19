@@ -29,6 +29,10 @@ function WebCamTest() {
     video.srcObject.getTracks()[0].stop();
   };
 
+  const record = () => {
+    
+  }
+
   return (
     <div className="app">
       <div className="app__container">
@@ -44,7 +48,10 @@ function WebCamTest() {
         {playing ? (
           <button onClick={stopVideo}>Stop</button>
         ) : (
-          <button onClick={startVideo}>Start</button>
+          <>
+            <button onClick={startVideo}>Start</button>
+            <button onClick={record}>Record</button>
+          </>
         )}
       </div>
     </div>
