@@ -1,91 +1,88 @@
-import React, {useRef, useState, useCallback} from "react";
+import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
 
 const WebcamStreamCapture = () => {
-  const video = document.querySelector(".videoPreview")
-  const mirror = document.querySelector(".mirror")
+  // const video = document.querySelector(".videoPreview");
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
-  const [previewUrl, setPreviewUrl] = useState("")
+  const [previewUrl, setPreviewUrl] = useState("");
 
-  const handleStartCaptureClick = useCallback(() => {
+  const handleStartRecording = () => {
     setCapturing(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-      mimeType: "video/webm"
+      mimeType: "video/webm",
     });
+
     mediaRecorderRef.current.addEventListener(
       "dataavailable",
       handleDataAvailable
     );
     mediaRecorderRef.current.start();
-  }, [webcamRef, setCapturing, mediaRecorderRef]);
+  };
 
-  const handleDataAvailable = useCallback(
-    ({ data }) => {
-      if (data.size > 0) {
-        setRecordedChunks((prev) => prev.concat(data));
-      }
-    },
-    [setRecordedChunks]
-  );
+  const handleDataAvailable = ({ data }) => {
+    if (data.size > 0) {
+      const newRecordedChunks = recordedChunks.concat(data);
+      setRecordedChunks(newRecordedChunks);
+      console.log("data available");
 
-  const handleStopCaptureClick = useCallback(() => {
+      const blob = new Blob(newRecordedChunks, {
+        type: "video/webm",
+      });
+      const url = URL.createObjectURL(blob);
+      console.log("url: ", url);
+      setPreviewUrl(url);
+    }
+  };
+
+  const handleStopRecording = () => {
     mediaRecorderRef.current.stop();
     setCapturing(false);
+  };
 
-    if (recordedChunks.length) {
-      const blob = new Blob(recordedChunks, {
-        type: "video/mp4"
-      });
-      const url = URL.createObjectURL(blob);
-      setPreviewUrl()
-    }
+  const handleRetake = () => {
+    window.URL.revokeObjectURL(previewUrl);
+    setRecordedChunks([]);
+    setPreviewUrl("");
+  };
 
-  }, [mediaRecorderRef, webcamRef, setCapturing]);
-
-
-  const handleDownload = useCallback(() => {
-    if (recordedChunks.length) {
-      const blob = new Blob(recordedChunks, {
-        type: "video/webm"
-      });
-      const url = URL.createObjectURL(blob);
-      // const a = document.createElement("a");
-      // document.body.appendChild(a);
-      // a.style = "display: none";
-      // a.href = url;
-      // a.download = "react-webcam-stream-capture.webm";
-      // a.click();
-      // window.URL.revokeObjectURL(url);
-      // setRecordedChunks([]);
-      return (
-        <>
-          <video controls loop className="videoPreview" src={url}></video>
-          <button>retake</button>
-        </>
-      )
-    }
-  }, [recordedChunks]);
-
-  const handleRetake = useCallback(() => {})
+  // const handleSubmit = () => {
+  //   //formdata()
+  //   // {
+  //   // video data + userId +
+  //   //}
+  //   // so userId, etc will remain in req.body
+  //   // video data will go to req.files
+  // };
 
   return (
     <>
-      {/* <video controls className="videoPreview" src={}></video> */}
+      {/* if left is true, return right. Right side is a jsx therefore always true */}
+      {/* {previewUrl !== "" && (
+        <div>
+          <video controls className="videoPreview" src={previewUrl}></video>
+          <button onClick={handleRetake}>Retake</button>
+        </div>
+      )} */}
 
-      {handleDownload()}
-
-      <Webcam audio={false} ref={webcamRef} className="mirror" />
-      {capturing ? (
-        <button onClick={handleStopCaptureClick}>Stop Capture</button>
+      {previewUrl !== "" ? (
+        <div>
+          <video controls className="videoPreview" src={previewUrl}></video>
+          <button onClick={handleRetake}>Retake</button>
+        </div>
       ) : (
-        <button onClick={handleStartCaptureClick}>Start Capture</button>
+        <div>
+            <Webcam audio={false} ref={webcamRef} />
+            {capturing ? (
+              <button onClick={handleStopRecording}>Stop Capture</button>
+            ) : (
+              <button onClick={handleStartRecording}>Start Capture</button>
+            )}
+        </div>
       )}
-      {recordedChunks.length > 0 && (
-        <button onClick={handleDownload}>Preview</button>
-      )}
+
     </>
   );
 };
