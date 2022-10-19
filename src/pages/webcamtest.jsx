@@ -1,61 +1,85 @@
+import React, {useRef, useState, useCallback} from "react";
+import Webcam from "react-webcam";
 
-import React, { useState } from 'react';
+const WebcamStreamCapture = () => {
+  const video = document.querySelector(".videoPreview")
+  const webcamRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const [capturing, setCapturing] = useState(false);
+  const [recordedChunks, setRecordedChunks] = useState([]);
+  const [previewUrl, setPreviewUrl] = useState("")
 
-function WebCamTest() {
-  const [playing, setPlaying] = useState(false);
-
-  const HEIGHT = 500;
-  const WIDTH = 500;
-
-  const startVideo = () => {
-    setPlaying(true);
-    navigator.getUserMedia(
-      {
-        video: true,
-      },
-      (stream) => {
-        let video = document.getElementsByClassName("app__videoFeed")[0];
-        if (video) {
-          video.srcObject = stream;
-        }
-      },
-      (err) => console.error(err)
+  const handleStartCaptureClick = useCallback(() => {
+    setCapturing(true);
+    mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+      mimeType: "video/webm"
+    });
+    mediaRecorderRef.current.addEventListener(
+      "dataavailable",
+      handleDataAvailable
     );
-  };
+    mediaRecorderRef.current.start();
+  }, [webcamRef, setCapturing, mediaRecorderRef]);
 
-  const stopVideo = () => {
-    setPlaying(false);
-    let video = document.getElementsByClassName("app__videoFeed")[0];
-    video.srcObject.getTracks()[0].stop();
-  };
+  const handleDataAvailable = useCallback(
+    ({ data }) => {
+      if (data.size > 0) {
+        setRecordedChunks((prev) => prev.concat(data));
+      }
+    },
+    [setRecordedChunks]
+  );
 
-  const record = () => {
-    
-  }
+  const handleStopCaptureClick = useCallback(() => {
+    mediaRecorderRef.current.stop();
+    setCapturing(false);
+
+    if (recordedChunks.length) {
+      const blob = new Blob(recordedChunks, {
+        type: "video/mp4"
+      });
+      const url = URL.createObjectURL(blob);
+      setPreviewUrl()
+    }
+
+  }, [mediaRecorderRef, webcamRef, setCapturing]);
+
+
+  const handleDownload = useCallback(() => {
+    if (recordedChunks.length) {
+      const blob = new Blob(recordedChunks, {
+        type: "video/webm"
+      });
+      const url = URL.createObjectURL(blob);
+      // const a = document.createElement("a");
+      // document.body.appendChild(a);
+      // a.style = "display: none";
+      // a.href = url;
+      // a.download = "react-webcam-stream-capture.webm";
+      // a.click();
+      // window.URL.revokeObjectURL(url);
+      // setRecordedChunks([]);
+      return (<video controls className="videoPreview" src={url}></video>)
+    }
+  }, [recordedChunks]);
 
   return (
-    <div className="app">
-      <div className="app__container">
-        <video
-          height={HEIGHT}
-          width={WIDTH}
-          muted
-          autoPlay
-          className="app__videoFeed"
-        ></video>
-      </div>
-      <div className="app__input">
-        {playing ? (
-          <button onClick={stopVideo}>Stop</button>
-        ) : (
-          <>
-            <button onClick={startVideo}>Start</button>
-            <button onClick={record}>Record</button>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
+    <>
+      {/* <video controls className="videoPreview" src={}></video> */}
 
-export default WebCamTest;
+      {handleDownload()}
+
+      <Webcam audio={false} ref={webcamRef} />
+      {capturing ? (
+        <button onClick={handleStopCaptureClick}>Stop Capture</button>
+      ) : (
+        <button onClick={handleStartCaptureClick}>Start Capture</button>
+      )}
+      {recordedChunks.length > 0 && (
+        <button onClick={handleDownload}>Preview</button>
+      )}
+    </>
+  );
+};
+
+export default WebcamStreamCapture;
