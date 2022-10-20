@@ -68,6 +68,7 @@ const WebcamStreamCapture = () => {
       // // There are two ways to upload forms with multipart/form-data encoding.
       // // The first is by using the enctype attribute: enctype='multipart/form-data'
       // // But since i dont have a form nor input fields in my html, I need to use the second way. Second way being to create my own FormData()
+     
       const form = new FormData();
       form.append("questionId", questionId);
       form.append("userId", userId);
@@ -78,6 +79,7 @@ const WebcamStreamCapture = () => {
       if (response.status === 200 || response.status === 201) {
         toast.success("Answer Submitted");
       }
+      
     } catch (error) {
       console.log(error);
       return;
