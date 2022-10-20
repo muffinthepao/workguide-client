@@ -10,6 +10,7 @@ const WebcamStreamCapture = () => {
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [previewUrl, setPreviewUrl] = useState("");
   const [createdBlob, setCreatedBlob] = useState(null);
+  const [blobArray, setBlobArray] = useState([]);
 
   const userId = 2;
   const questionId = 1;
@@ -36,7 +37,6 @@ const WebcamStreamCapture = () => {
 
       const blob = new Blob(newRecordedChunks, {
         type: "video/mp4",
-        codecs:"avc1.424028, mp4a.40.2"
       });
       const url = URL.createObjectURL(blob);
       console.log("url: ", url);
@@ -56,6 +56,10 @@ const WebcamStreamCapture = () => {
     setPreviewUrl("");
     setCreatedBlob(null);
   };
+  const handleNext = () => {
+    setBlobArray([...blobArray, createdBlob]);
+    handleRetake();
+  };
 
   const handleSubmit = async () => {
     //formdata()
@@ -68,21 +72,21 @@ const WebcamStreamCapture = () => {
     console.log("clicked submit");
 
     try {
-      // // There are two ways to upload forms with multipart/form-data encoding. 
+      // // There are two ways to upload forms with multipart/form-data encoding.
       // // The first is by using the enctype attribute: enctype='multipart/form-data'
-      // // But since i dont have a form nor input fields in my html, I need to use the second way. Second way being to create my own FormData() 
+      // // But since i dont have a form nor input fields in my html, I need to use the second way. Second way being to create my own FormData()
       const form = new FormData();
       form.append("questionId", questionId);
       form.append("userId", userId);
-      form.append("file", createdBlob);
-      const response = await axios.post(baseAnswerURL,  form );
+      // form.append("files", blobArray);
+      form.append("file", createdBlob );
+      const response = await axios.post(baseAnswerURL, form);
 
       // const response = await axios.post(baseAnswerURL, {
       //   questionId,
       //   userId,
       //   file: createdBlob
       // } );
-  
 
       if (response.status === 200 || response.status === 201) {
         toast.success("Answer Submitted");
@@ -98,18 +102,22 @@ const WebcamStreamCapture = () => {
       {/* if left is true, return right. Right side is a jsx therefore always true */}
       {previewUrl !== "" ? (
         <div>
+          <p>Video Parts: {blobArray.length}</p>
           <video controls className="videoPreview" src={previewUrl}></video>
           <button onClick={handleRetake}>Retake</button>
           <button onClick={handleSubmit}>Submit</button>
+          <button onClick={handleNext}>Record Next Part</button>
         </div>
       ) : (
         <div>
+          <p>Video Parts: {blobArray.length}</p>
           <Webcam audio={false} ref={webcamRef} />
           {capturing ? (
             <button onClick={handleStopRecording}>Stop Capture</button>
           ) : (
             <button onClick={handleStartRecording}>Start Capture</button>
           )}
+          <button onClick={handleSubmit}>Submit</button>
         </div>
       )}
     </>
