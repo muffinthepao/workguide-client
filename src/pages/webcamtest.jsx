@@ -62,13 +62,6 @@ const WebcamStreamCapture = () => {
   };
 
   const handleSubmit = async () => {
-    //formdata()
-    // {
-    // video data + userId +
-    //}
-    // so userId, etc will remain in req.body
-    // video data will go to req.files
-
     console.log("clicked submit");
 
     try {
@@ -79,14 +72,8 @@ const WebcamStreamCapture = () => {
       form.append("questionId", questionId);
       form.append("userId", userId);
       // form.append("files", blobArray);
-      form.append("file", createdBlob );
+      form.append("file", createdBlob);
       const response = await axios.post(baseAnswerURL, form);
-
-      // const response = await axios.post(baseAnswerURL, {
-      //   questionId,
-      //   userId,
-      //   file: createdBlob
-      // } );
 
       if (response.status === 200 || response.status === 201) {
         toast.success("Answer Submitted");
