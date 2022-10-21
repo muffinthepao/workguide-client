@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
@@ -73,8 +72,20 @@ const WebcamStreamCapture = () => {
       const form = new FormData();
       form.append("questionId", questionId);
       form.append("userId", userId);
-      // form.append("files", blobArray);
-      form.append("file", createdBlob);
+      
+      // for (let i = 0; i < blobArray.length; i++) {
+      //   form.append("file", blobArray[i])
+      //   console.log(blobArray[i])
+      // }
+
+      blobArray.forEach(x => {
+        return form.append("file", x);
+      })
+
+      console.log("form: ", form)
+      
+
+      // form.append("file", createdBlob);
       const response = await axios.post(baseAnswerURL, form);
 
       if (response.status === 200 || response.status === 201) {
