@@ -13,8 +13,8 @@ const WebcamStreamCapture = () => {
   const [blobArray, setBlobArray] = useState([]);
 
   const userId = 2;
-  const questionId = 1;
-  const baseAnswerURL = `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers`;
+  const questionId = 2;
+  const baseAnswerURL = `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers/create`;
 
   const handleStartRecording = () => {
     setCapturing(true);
@@ -78,8 +78,8 @@ const WebcamStreamCapture = () => {
       //   console.log(blobArray[i])
       // }
 
-      blobArray.forEach(x => {
-        return form.append("file", x);
+      blobArray.forEach(blob => {
+        return form.append("file", blob);
       })
 
       console.log("form: ", form)
