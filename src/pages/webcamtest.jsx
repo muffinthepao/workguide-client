@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import getBlobDuration from 'get-blob-duration'
 import { toast } from "react-toastify";
 import Webcam from "react-webcam";
 
@@ -11,12 +12,9 @@ const WebcamStreamCapture = () => {
   const [previewUrl, setPreviewUrl] = useState("");
   const [createdBlob, setCreatedBlob] = useState(null);
   const [blobArray, setBlobArray] = useState([]);
-  const [showAnswer] = useState([
-    "https://ik.imagekit.io/7m4pg6sx4/workguide/blob_F8LczPgJW.mp4",
-    "https://ik.imagekit.io/7m4pg6sx4/workguide/blob_UeD0BlUdrd.mp4",
-    "https://ik.imagekit.io/7m4pg6sx4/workguide/blob_W0TkUBqXR.mp4",
-    "https://ik.imagekit.io/7m4pg6sx4/workguide/blob_W0ljRhezj.mp4",
-  ]);
+  const [blobDuration, setBlobDuration] = useState([])
+
+  const preview = document.getElementById("videoPreview")
 
   const userId = 2;
   const questionId = 1;
@@ -56,12 +54,19 @@ const WebcamStreamCapture = () => {
     setCapturing(false);
   };
 
+  const handleHowLong = () => {
+    getBlobDuration(previewUrl).then(function(duration) {
+      console.log(duration + ' seconds');
+    });
+  }
+
   const handleRetake = () => {
     window.URL.revokeObjectURL(previewUrl);
     setRecordedChunks([]);
     setPreviewUrl("");
     setCreatedBlob(null);
   };
+
   const handleNext = () => {
     setBlobArray([...blobArray, createdBlob]);
     handleRetake();
@@ -78,11 +83,6 @@ const WebcamStreamCapture = () => {
       const form = new FormData();
       form.append("questionId", questionId);
       form.append("userId", userId);
-
-      // for (let i = 0; i < blobArray.length; i++) {
-      //   form.append("file", blobArray[i])
-      //   console.log(blobArray[i])
-      // }
 
       blobArray.forEach((blob) => {
         return form.append("file", blob);
@@ -101,6 +101,8 @@ const WebcamStreamCapture = () => {
       return;
     }
   };
+
+
 
 
   // const handleWatchAnswer = (arrayOfVideos) => {
@@ -126,6 +128,7 @@ const WebcamStreamCapture = () => {
   //   document
   //     .getElementById("videoPlayer")
   //     .addEventListener("ended", myHandler, false);
+  //     {/* add listener after video renders*/}
 
   //   videoPlay(0); // load the first video
   //   ensureVideoPlays(); // play the video automatically
@@ -160,14 +163,21 @@ const WebcamStreamCapture = () => {
   //   }
   // };
 
-  // handleWatchAnswer(showAnswer);
+  // {/*should e in a use effect. An action should invoke a function. */}
+  // useEffect(() => {
+  //   // Update the document title using the browser API
+  //   handleWatchAnswer();
+  // }, []);
+
+  
   return (
     <>
       {/* if left is true, return right. Right side is a jsx therefore always true */}
       {previewUrl !== "" ? (
         <div>
           <p>Video Parts: {blobArray.length}</p>
-          <video controls className="videoPreview" src={previewUrl}></video>
+          <video autoplay controls id="videoPreview" src={previewUrl}></video>
+          <button onClick={handleHowLong}>How Long???</button>
           <button onClick={handleRetake}>Retake</button>
           <button onClick={handleSubmit}>Submit</button>
           <button onClick={handleNext}>Record Next Part</button>
@@ -183,7 +193,7 @@ const WebcamStreamCapture = () => {
             <button onClick={handleStartRecording}>Start Capture</button>
           )}
           <button onClick={handleSubmit}>Submit</button>
-          <video autoplay controls id="videoPlayer" height="200"></video>
+          {/* <video autoplay controls id="videoPlayer" height="200"></video> */}
         </div>
       )}
     </>
