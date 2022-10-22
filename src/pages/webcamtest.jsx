@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import getBlobDuration from 'get-blob-duration'
 import { toast } from "react-toastify";
 import Webcam from "react-webcam";
@@ -13,8 +13,6 @@ const WebcamStreamCapture = () => {
   const [createdBlob, setCreatedBlob] = useState(null);
   const [blobArray, setBlobArray] = useState([]);
   const [blobDuration, setBlobDuration] = useState([])
-
-  const preview = document.getElementById("videoPreview")
 
   const userId = 2;
   const questionId = 1;
@@ -55,9 +53,6 @@ const WebcamStreamCapture = () => {
   };
 
   const handleHowLong = () => {
-    getBlobDuration(previewUrl).then(function(duration) {
-      console.log(duration + ' seconds');
-    });
   }
 
   const handleRetake = () => {
@@ -69,6 +64,12 @@ const WebcamStreamCapture = () => {
 
   const handleNext = () => {
     setBlobArray([...blobArray, createdBlob]);
+    
+    getBlobDuration(createdBlob).then(function(duration) {
+      console.log(duration + ' seconds');
+      setBlobDuration([...blobDuration, duration])
+    });
+
     handleRetake();
   };
 
@@ -83,6 +84,7 @@ const WebcamStreamCapture = () => {
       const form = new FormData();
       form.append("questionId", questionId);
       form.append("userId", userId);
+      form.append("blobDurations", blobDuration)
 
       blobArray.forEach((blob) => {
         return form.append("file", blob);
