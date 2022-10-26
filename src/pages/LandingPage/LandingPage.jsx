@@ -19,16 +19,16 @@ const LandingPage = () => {
             Don't do it alone. Get a Local Guide
           </p>
         </div>
-        <div className="w-full md:w-7/12 py-6 text-center">
+        <div className="w-full md:w-7/12 pt-4 text-center">
           {/* <img className="w-full md:w-4/5 z-50 text-center flex justify-center" src="https://domf5oio6qrcr.cloudfront.net/medialibrary/9764/GettyImages-936117884.jpg" /> */}
           <img src={HeroImage} style={{objectFit: "cover"}}/>
         </div>
         <div className="w-full text-center">
-          <img className="max-w-5" src={ScrollDownGif}/>
+          <img className="mx-auto" src={ScrollDownGif} style={{width: "200px", height: "70px", objectFit: "cover"}}/>
         </div>
       </div>
     </div>
-    <div className="relative -mt-12 lg:-mt-24">
+    {/* <div className="relative -mt-12 lg:-mt-24">
       <svg viewBox="0 0 1428 174" version="1.1">
         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
           <g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
@@ -46,7 +46,7 @@ const LandingPage = () => {
           </g>
         </g>
       </svg>
-    </div>
+    </div> */}
     <section className="bg-white border-b py-8">
       <div className="container max-w-5xl mx-auto m-8">
         <h2 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
