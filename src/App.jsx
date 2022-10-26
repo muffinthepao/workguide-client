@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "./App.css";
 
 import WebCamTest from "./pages/webcamtest";
-import LandingPage from "./pages/LandingPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import Navbar from "../src/components/Navbar";
 
 import "react-toastify/dist/ReactToastify.css";
