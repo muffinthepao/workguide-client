@@ -14,9 +14,9 @@ const WebcamStreamCapture = () => {
   const [blobArray, setBlobArray] = useState([]);
   const [blobDuration, setBlobDuration] = useState([])
 
-  const userId = 2;
+  const userId = 1;
   const questionId = 1;
-  const baseAnswerURL = `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers/create`;
+  const baseAnswerURL = `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers/process-multi`;
 
   const handleStartRecording = () => {
     setCapturing(true);
