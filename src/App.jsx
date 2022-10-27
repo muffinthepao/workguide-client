@@ -3,9 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
 
-import WebCamTest from "./pages/webcamtest";
-import LandingPage from "./pages/LandingPage/LandingPage";
 import Navbar from "../src/components/Navbar";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import Questions from "./pages/Questions"
+import WebCamTest from "./pages/webcamtest";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -15,6 +16,16 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="login" />
+          <Route path="join" />
+          <Route path="/questions" element={<Questions />} />
+          <Route path="/questions/:questionId" />
+          <Route path="/questions/:questionId/answers/:answerId" />
+          <Route path="/guides"/>
+          <Route path="/guides/:guideId" />
+          <Route path="/user" />
+          <Route path="/user/questions" />
+          <Route path="/user/answers" />
           <Route path="/videobooth" element={<WebCamTest />} />
         </Routes>
 
