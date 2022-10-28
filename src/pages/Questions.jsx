@@ -1,13 +1,14 @@
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { Link } from "react-router-dom";
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
-export default function Example() {
+export default function Questions() {
   return (
     <div className="relative pt-24 bg-no-repeat bg-cover bg-center mx-10">
       <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
 
-        <div className="flex flex-wrap w-full flex-col items-center text-center py-4 border-bottom-width: 4px;
-border-b-8 border-b-solid">
+        <div className="flex flex-wrap w-full flex-col items-center text-center py-4 border-bottom-width: 4px; border-b-8 border-b-solid">
           <h1 className="sm:text-3xl text-3xl font-medium title-font mb-2 text-black">QUESTIONS</h1>
           <p className="lg:w-1/2 w-full leading-relaxed text-black">Including the top upoted questions from the SGWork Subreddit</p>
         </div>
@@ -28,7 +29,7 @@ border-b-8 border-b-solid">
                   <span className="mt-1 text-gray-500 text-sm">12 Jun 2019</span>
                 </div>
                 <div className="md:flex-grow text-left ">
-                  <p className="text-xl font-medium text-gray-900 title-font mb-2">Was there a time when you thought you hired the right person, but your judgement turned out to be wrong? If so, what are the mistakes that I should avoid to make sure that this never happens?</p>
+                  <Link to="/questions/1" className="text-xl font-medium text-gray-900 title-font mb-2">Q: Was there a time when you thought you hired the right person, but your judgement turned out to be wrong? If so, what are the mistakes that I should avoid to make sure that this never happens?</Link>
                   {/* <p className="leading-relaxed">Glossier echo park pug, church-key sartorial biodiesel vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf moon party messenger bag selfies, poke vaporware kombucha lumbersexual pork belly polaroid hoodie portland craft beer.</p> */}
                   <div className="flex space-x-5 mt-5">
                     <span className="inline-block py-1 px-2 rounded bg-slate-100 text-slate-500 text-xs font-medium tracking-widest">CATEGORY</span>
@@ -56,7 +57,7 @@ border-b-8 border-b-solid">
                   <span className="mt-1 text-gray-500 text-sm">12 Jun 2019</span>
                 </div>
                 <div className="md:flex-grow text-left ">
-                  <p className="text-xl font-medium text-gray-900 title-font mb-2">Was there a time when you thought you hired the right person, but your judgement turned out to be wrong? If so, what are the mistakes that I should avoid to make sure that this never happens?</p>
+                  <p className="text-xl font-medium text-gray-900 title-font mb-2">Q:Was there a time when you thought you hired the right person, but your judgement turned out to be wrong? If so, what are the mistakes that I should avoid to make sure that this never happens?</p>
                   {/* <p className="leading-relaxed">Glossier echo park pug, church-key sartorial biodiesel vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf moon party messenger bag selfies, poke vaporware kombucha lumbersexual pork belly polaroid hoodie portland craft beer.</p> */}
                   <div className="flex space-x-5 mt-5">
                     <span className="inline-block py-1 px-2 rounded bg-slate-100 text-slate-500 text-xs font-medium tracking-widest">CATEGORY</span>
