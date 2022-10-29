@@ -1,9 +1,46 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import { DateTime } from 'luxon';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from "react-router-dom";
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 export default function Questions() {
+
+  const [question, setQuestion] = useState([])
+  
+  //on page load
+  useEffect(() => {
+    const axiosCall = async () => {
+      try {
+        const questions = await axios.get(process.env.REACT_APP_QNS_BASE_URL)
+        // const questions = await axios.get('http://localhost:8000/api/v1/questions')
+  
+        console.log(questions.data[1])
+        console.log("id: ", questions.data[1].id)
+        console.log("question: ", questions.data[1].question)
+
+        const categories = questions.data[1].categories
+      
+        categories.forEach(category => console.log("category: ", category.category))
+        
+        const date = questions.data[1].createdAt
+        const dateFormatted = DateTime.fromISO(date)
+        const humanReadable = dateFormatted.toLocaleString(DateTime.DATE_MED);
+
+        console.log(humanReadable); // =>  October 22, 9:38 PM
+
+        console.log(humanReadable)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    axiosCall()
+  },[])
+
+
+
   return (
     <div className="relative pt-24 bg-no-repeat bg-cover bg-center mx-10">
       <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
