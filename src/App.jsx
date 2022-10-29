@@ -6,7 +6,7 @@ import "./App.css";
 import Navbar from "../src/components/Navbar";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Question from "./pages/Question"
-import Questions from "./pages/Questions"
+import Questions from "./pages/Questions/Questions"
 import WebCamTest from "./pages/webcamtest";
 
 import "react-toastify/dist/ReactToastify.css";

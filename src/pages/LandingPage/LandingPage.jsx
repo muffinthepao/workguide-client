@@ -1,11 +1,11 @@
 // import React, { useRef, useState } from "react";
 import React from "react";
 
-import HeroImage from "../LandingPage/workplace-stress.jpeg"
-import ScrollDownGif from "../LandingPage/down-arrow.gif"
 import ClarityPic from "../LandingPage/clarity.png"
 import CompetencyPic from "../LandingPage/competence.png"
 import ConnectionsPic from "../LandingPage/connections.png"
+import HeroImage from "../LandingPage/workplace-stress.jpeg"
+import ScrollDownGif from "../LandingPage/down-arrow.gif"
 
 const LandingPage = () => {
   return (
@@ -180,7 +180,7 @@ const LandingPage = () => {
         <div className="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
       </div>
       <h3 className="my-4 text-3xl leading-tight">
-        Purposefully built to cit through the noise
+        Purposefully built to cut through the noise
       </h3>
       <p>No posing, no nonsense.</p> 
       <p>Just real answers backed by actual experience.</p> 
