@@ -61,38 +61,6 @@ export default function Questions() {
         <section className="text-gray-600 body-font overflow-hidden">
           <div className="container px-5 py-8 mx-auto">
             <div className="-my-8 divide-y-2 divide-gray-100">
-              <div className="py-8 flex flex-wrap md:flex-nowrap space-x-6">
-                <div className="md:w-64 :mb-0md mb-6 flex-shrink-0 flex md:flex-col md: space-y-5 sm:flex-row sm">
-                  <span className="inline-block p-3 rounded bg-slate-50 text-indigo-500 text-xs font-medium tracking-widest space-x-6">
-                    <FontAwesomeIcon className="pr-3" icon={icon({name: 'bookmark', style: 'regular'})} /> 
-                    BOOKMARK
-                  </span>
-                  <span className="inline-block p-3 rounded bg-slate-50 text-indigo-500 text-xs font-medium tracking-widest">
-                  <FontAwesomeIcon className="pr-3" icon={icon({name: 'chevron-up', style: 'solid'})} />
-                    UPVOTE
-                  </span>
-                  <span className="inline-block p-3 rounded bg-slate-50 text-indigo-500 text-xs font-medium tracking-widest">
-                    <FontAwesomeIcon className="pr-3" icon={icon({name: 'film', style: 'solid'})} />
-                    ANSWERS: 3
-                  </span>
-                  <span className="mt-1 text-gray-500 text-sm">12 Jun 2019</span>
-                </div>
-                <div className="md:flex-grow text-left ">
-                  <Link to="/questions/1" className="text-xl font-medium text-gray-900 title-font mb-2">Q: Was there a time when you thought you hired the right person, but your judgement turned out to be wrong? If so, what are the mistakes that I should avoid to make sure that this never happens?</Link>
-                  {/* <p className="leading-relaxed">Glossier echo park pug, church-key sartorial biodiesel vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf moon party messenger bag selfies, poke vaporware kombucha lumbersexual pork belly polaroid hoodie portland craft beer.</p> */}
-                  <div className="flex space-x-5 mt-5">
-                    <span className="inline-block py-1 px-2 rounded bg-slate-100 text-slate-500 text-xs font-medium tracking-widest">CATEGORY</span>
-                    <span className="inline-block py-1 px-2 rounded bg-slate-100 text-slate-500 text-xs font-medium tracking-widest">CATEGORY</span>
-                    <span className="inline-block py-1 px-2 rounded bg-slate-100 text-slate-500 text-xs font-medium tracking-widest">CATEGORY</span>
-                  </div>
-                  {/* <a className="text-yellow-500 inline-flex items-center mt-4">Learn More
-                    <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 12h14"></path>
-                      <path d="M12 5l7 7-7 7"></path>
-                    </svg>
-                  </a> */}
-                </div>
-              </div>
               {questions.length !== 0 ? (
                 <>
                   {questionCards}
