@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink, Link } from "react-router-dom";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 export default function Question() {

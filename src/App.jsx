@@ -7,8 +7,8 @@ import Navbar from "../src/components/Navbar";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Question from "./pages/Question"
 import Questions from "./pages/Questions/Questions"
-import AnswerMethodSelection from "./pages/VideoBooth/AnswerMethodSelection";
-import VideoBooth from "./pages/VideoBooth/VideoBooth";
+import AnswerMethodSelection from "./SubmitAnswer/VideoBooth/AnswerMethodSelection";
+import VideoBooth from "./SubmitAnswer/VideoBooth/VideoBooth";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -17,13 +17,13 @@ function App() {
     <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<AnswerMethodSelection />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="login" />
           <Route path="join" />
           <Route path="/questions" element={<Questions />} />
           <Route path="/questions/:questionId" element={<Question />}/>
           <Route path="/questions/:questionId/answers/:answerId" />
-          <Route path="/questions/:questionId/answers/submit-answer" />
+          <Route path="/questions/:questionId/answers/submit-answer" element={<AnswerMethodSelection />} />
           <Route path="/guides"/>
           <Route path="/guides/:guideId" />
           <Route path="/user" />

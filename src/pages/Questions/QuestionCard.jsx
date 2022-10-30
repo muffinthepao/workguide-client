@@ -60,7 +60,7 @@ export default function QuestionCard({ question }) {
 
 
         <div className="md:w-64 :mb-0md mb-6 flex-shrink-0 flex md:flex-col md: space-y-5 sm:flex-row sm">
-          <Link to={`/questions/${id}/answers/submit-answer`} className="inline-block p-3 rounded bg-yellow-50 text-yellow-500 text-xs font-medium tracking-widest space-x-6 hover:border-2 hover:border-yellow-500 hover:scale-105 duration-300 ease-in-out">
+          <Link to={`/questions/${id}/answers/submit-answer`} className="inline-block p-3 rounded bg-yellow-50 text-yellow-600 text-xs font-medium tracking-widest space-x-6 hover:border-2 hover:border-yellow-500 hover:scale-105 duration-300 ease-in-out">
             <FontAwesomeIcon
               className="pr-3"
               icon={icon({ name: "plus", style: "solid" })}
