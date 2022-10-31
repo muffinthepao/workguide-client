@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import { UrlSchema } from "../SubmitUrl/SubmitUrlValidation";
+import axios from "axios";
 
-export default function SubmitUrlModal({showUrlModal, setShowUrlModal }) {
+export default function SubmitUrlModal({ showUrlModal, setShowUrlModal }) {
+  const { questionId } = useParams();
 
   const {
     register,
@@ -16,12 +18,29 @@ export default function SubmitUrlModal({showUrlModal, setShowUrlModal }) {
   } = useForm({
     resolver: joiResolver(UrlSchema),
     defaultValues: {
-      url: "https://youtu.be/yvoO_ErTy6Q?t=11",
+      answerUrl: "https://youtu.be/yvoO_ErTy6Q?t=11",
     },
   });
 
-  async function onSubmit(data) {
-    console.log("data: ", data)
+  async function onSubmit(data) {  
+   try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers/url-insertion`,
+        {
+          data
+        }
+      );
+  
+      if (response.status === 201) {
+        toast.success("Answer created via URL")
+      } else (
+        toast.warning("From TRY Unable to create answer")
+      )
+    } catch (error) {
+      console.log(error)
+      toast.warning("From CATCH Unable to create answer")
+    }
+
   }
 
   return (
@@ -51,11 +70,13 @@ export default function SubmitUrlModal({showUrlModal, setShowUrlModal }) {
                   <div className="relative p-6 flex-auto">
                     <textarea
                       placeholder="Paste video URL here"
-                      id="url"
-                      {...register("url")}
+                      id="answerUrl"
+                      {...register("answerUrl")}
                       className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
                     ></textarea>
-                    <p className="text-red-500 text-left">{errors.url?.message}</p>
+                    <p className="text-red-500 text-left">
+                      {errors.answerUrl?.message}
+                    </p>
                   </div>
                   {/*footer*/}
                   <div className="flex items-center justify-end p-6 rounded-b">
