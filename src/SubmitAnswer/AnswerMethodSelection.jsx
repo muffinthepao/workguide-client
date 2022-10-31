@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { joiResolver } from "@hookform/resolvers/joi";
@@ -17,7 +18,7 @@ export default function AnswerMethodSelection() {
   const [showUrlModal, setShowUrlModal] = useState(false);
   const [showVideoFileModal, setShowVideoFileModal] = useState(false);
 
-
+  const { questionId } = useParams();
 
   return (
     <>
@@ -75,7 +76,7 @@ export default function AnswerMethodSelection() {
       <section className="text-gray-600 body-font mx-auto">
         <div className="container px-5 mx-auto">
           <div className="flex flex-wrap justify-center -m-4 text-center">
-            <div className="p-4 md:w-1/3 sm:w-1/2 w-full">
+            <Link to={`/questions/${questionId}`}className="p-4 md:w-1/3 sm:w-1/2 w-full">
               <div className="border-2 border-slate-300 text-slate-400 px-4 py-6 rounded-lg hover:scale-105 duration-300 ease-in-out hover:border-yellow-400 hover:text-yellow-400">
                 <FontAwesomeIcon
                   className="mb-3"
@@ -85,7 +86,7 @@ export default function AnswerMethodSelection() {
                 <h2 className="title-font font-medium text-3xl">BACK</h2>
                 <p className="leading-relaxed">To question</p>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
