@@ -9,13 +9,16 @@ import Question from "./pages/Question"
 import Questions from "./pages/Questions/Questions"
 import AnswerMethodSelection from "./SubmitAnswer/VideoBooth/AnswerMethodSelection";
 import VideoBooth from "./SubmitAnswer/VideoBooth/VideoBooth";
+import { AnswerProvider } from "./context/AnswerContext";
 
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <div className="App">
+      <AnswerProvider>
         <Navbar />
+
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="login" />
@@ -33,6 +36,7 @@ function App() {
         </Routes>
 
         <ToastContainer />
+      </AnswerProvider >
     </div>
   );
 }

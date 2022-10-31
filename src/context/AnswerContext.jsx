@@ -10,19 +10,35 @@ export function useAnswer() {
 
 export function AnswerProvider({ children }) {
   //what Answer related info i want to make available throughout the app
-  const [categories, setCategories] = useState([]);
+  const [categoryList, setCategoryList] = useState([
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+    { value: '1', label: '1' },
+    { value: '2', label: '2' },
+    { value: '3', label: '3' },
+    { value: '4', label: '4' },
+    { value: '5', label: '5' },
+    { value: '6', label: '6' },
+    { value: '7', label: '7' },
+    { value: '8', label: '8' },
+    { value: '9', label: '9' },
+  ]);
+  const [selectedCategories, setSelectedCategories] = useState([])
 
   //is user logged in? meaning does user have token?
 
-  const values = {
-    categories,
-    setCategories
+  const value = {
+    categoryList,
+    selectedCategories,
+    setCategoryList,
+    setSelectedCategories
   }
-
+  // value - singular. CANNOT use values
   return (
-    <ShoppingCartContext.Provider values={values}>
+    <AnswerContext.Provider value={value}>
       {children}
-    </ShoppingCartContext.Provider>
+    </AnswerContext.Provider>
   );
 }
 
