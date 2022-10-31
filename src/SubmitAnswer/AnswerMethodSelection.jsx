@@ -6,7 +6,8 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useForm } from "react-hook-form";
 
 
-import SubmitUrlModal from "../SubmitUrl/SubmitUrlModal";
+import SubmitUrlModal from "./SubmitUrl/SubmitUrlModal";
+import SubmitVideoFileModal from "./SubmitVideoFile/SubmitVideoFileModal";
 
 
 
@@ -14,18 +15,9 @@ import SubmitUrlModal from "../SubmitUrl/SubmitUrlModal";
 export default function AnswerMethodSelection() {
   
   const [showUrlModal, setShowUrlModal] = useState(false);
+  const [showVideoFileModal, setShowVideoFileModal] = useState(false);
 
-//   const {
-//     register,
-//     handleSubmit,
-//     // watch,
-//     formState: { errors },
-// } = useForm({
-//     resolver: joiResolver(schema),
-//     defaultValues: {
-//       url: "https://youtu.be/yvoO_ErTy6Q?t=11"
-//     },
-// });
+
 
   return (
     <>
@@ -53,13 +45,15 @@ export default function AnswerMethodSelection() {
             </div>
             <div className="p-4 md:w-1/3 sm:w-1/2 w-full">
               <div className="border-2 border-slate-300 text-slate-400 px-4 py-6 rounded-lg hover:scale-105 duration-300 ease-in-out hover:border-yellow-400 hover:text-yellow-400">
-                <FontAwesomeIcon
-                  className="mb-3"
-                  icon={solid("upload")}
-                  style={{ fontSize: "3rem" }}
-                />
-                <h2 className="title-font font-medium text-3xl">Upload File(s)</h2>
-                <p className="leading-relaxed">Upload up to 4x video parts</p>
+                <button type="button" onClick={() => setShowVideoFileModal(true)}>
+                  <FontAwesomeIcon
+                    className="mb-3"
+                    icon={solid("upload")}
+                    style={{ fontSize: "3rem" }}
+                  />
+                  <h2 className="title-font font-medium text-3xl">Upload File(s)</h2>
+                  <p className="leading-relaxed">Upload up to 4x video parts</p>
+                </button>
               </div>
             </div>
             <div className="p-4 md:w-1/3 sm:w-1/2 w-full">
@@ -97,6 +91,8 @@ export default function AnswerMethodSelection() {
       </section>
 
       <SubmitUrlModal showUrlModal={showUrlModal} setShowUrlModal={setShowUrlModal}/>
+      <SubmitVideoFileModal showVideoFileModal={showVideoFileModal} setShowVideoFileModal={setShowVideoFileModal}/>
+
       
     </>
   );
