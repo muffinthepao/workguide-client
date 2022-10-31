@@ -10,7 +10,7 @@ export default function SelectCategories() {
   return (
     <>
       <Select
-        defaultValue={[categoryList[2], categoryList[3]]}
+        defaultValue={[]}
         onChange={(category) => setSelectedCategories(category)}
         // components={animatedComponents}
         isOptionDisabled={() => selectedCategories.length >= 3}

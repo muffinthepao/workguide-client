@@ -10,21 +10,30 @@ export function useAnswer() {
 
 export function AnswerProvider({ children }) {
   //what Answer related info i want to make available throughout the app
-  const [categoryList, setCategoryList] = useState([
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-    { value: '1', label: '1' },
-    { value: '2', label: '2' },
-    { value: '3', label: '3' },
-    { value: '4', label: '4' },
-    { value: '5', label: '5' },
-    { value: '6', label: '6' },
-    { value: '7', label: '7' },
-    { value: '8', label: '8' },
-    { value: '9', label: '9' },
-  ]);
+  const [fetchCategories, setFetchCategories]=useState(false)
+  const [categoryList, setCategoryList] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([])
+
+  //get update list of categories from db
+  useEffect(() => {
+    const getCategories = async () => {
+      const formattedCategories =[]
+      try {
+        const response = await axios.get(process.env.REACT_APP_CATEGORY_BASE_URL)
+        const categories = response.data.forEach((category, idx) => {
+          formattedCategories.push({value: idx,label: category.category})
+        })
+        setCategoryList(formattedCategories)
+        console.log(response.data)
+        setFetchCategories(true)
+      } catch (error) {
+        console.log(error)
+        return
+      }
+    }
+
+    getCategories().catch(console.error);
+  }, [fetchCategories])
 
   //is user logged in? meaning does user have token?
 
