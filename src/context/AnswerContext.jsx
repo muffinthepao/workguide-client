@@ -20,11 +20,10 @@ export function AnswerProvider({ children }) {
       const formattedCategories =[]
       try {
         const response = await axios.get(process.env.REACT_APP_CATEGORY_BASE_URL)
-        const categories = response.data.forEach((category, idx) => {
+        response.data.forEach((category, idx) => {
           formattedCategories.push({value: idx,label: category.category})
         })
         setCategoryList(formattedCategories)
-        console.log(response.data)
         setFetchCategories(true)
       } catch (error) {
         console.log(error)

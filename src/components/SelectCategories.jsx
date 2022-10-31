@@ -11,7 +11,8 @@ export default function SelectCategories() {
     <>
       <Select
         defaultValue={[]}
-        onChange={(category) => setSelectedCategories(category)}
+        onChange={(category) => {setSelectedCategories(category)}}
+        menuPlacement="auto"
         // components={animatedComponents}
         isOptionDisabled={() => selectedCategories.length >= 3}
         closeMenuOnSelect={false}
