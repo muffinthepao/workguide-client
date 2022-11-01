@@ -15,24 +15,28 @@ export default function SubmitVideoFileModal({
   const { questionId } = useParams();
   const [files, setFiles] = useState([])
 
-  const {
-    register,
-    handleSubmit,
-    // watch,
-    formState: { errors },
-  } = useForm({
-    resolver: joiResolver(),
-    defaultValues: {},
-  });
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   // watch,
+  //   formState: { errors },
+  // } = useForm({
+  //   resolver: joiResolver(),
+  //   defaultValues: {},
+  // });
 
-  async function onSubmit(data) {
+  async function handleSubmit() {
+    const userId = 1
+    const blobDurations = [2,2]
+    const form = new FormData();
+    form.append("userId", userId);
+    form.append("blobDurations", blobDurations)
+    files.forEach((file) => {
+      return form.append("file", file);
+    });
+
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers/process-multi`,
-        {
-          data,
-        }
-      );
+      const response = await axios.post(`${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers/process-multi`, form);
 
       if (response.status === 201) {
         toast.success("Answer created via File Upload");
@@ -42,6 +46,8 @@ export default function SubmitVideoFileModal({
       toast.warning("From CATCH Unable to create answer");
     }
   }
+
+
 
   return (
     <>
@@ -69,7 +75,7 @@ export default function SubmitVideoFileModal({
                   </button>
                 </div>
                 {/*body*/}
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form>
                   <div className="relative m-7 p-6 flex-auto">
                     <h1 className="text-center"></h1>
                     <Dropzone files={files} setFiles={setFiles}/>
@@ -88,7 +94,8 @@ export default function SubmitVideoFileModal({
                     </button>
                     <button
                       className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="submit"
+                      type="button"
+                      onClick={handleSubmit}
                     >
                       Submit
                     </button>
