@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
+import axios from "axios";
 
 import { joiResolver } from "@hookform/resolvers/joi";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 
-export default function SubmitVideoFileModal({ showVideoFileModal, setShowVideoFileModal }) {
+import Dropzone from "../../components/Dropzone";
+
+export default function SubmitVideoFileModal({
+  showVideoFileModal,
+  setShowVideoFileModal,
+}) {
   const { questionId } = useParams();
 
   const {
@@ -16,29 +21,25 @@ export default function SubmitVideoFileModal({ showVideoFileModal, setShowVideoF
     formState: { errors },
   } = useForm({
     resolver: joiResolver(),
-    defaultValues: {
-    },
+    defaultValues: {},
   });
 
-  async function onSubmit(data) {  
-   try {
+  async function onSubmit(data) {
+    try {
       const response = await axios.post(
         `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers/process-multi`,
         {
-          data
+          data,
         }
       );
-  
-      if (response.status === 201) {
-        toast.success("Answer created via File Upload")
-      } else (
-        toast.warning("From TRY Unable to create answer")
-      )
-    } catch (error) {
-      console.log(error)
-      toast.warning("From CATCH Unable to create answer")
-    }
 
+      if (response.status === 201) {
+        toast.success("Answer created via File Upload");
+      } else toast.warning("From TRY Unable to create answer");
+    } catch (error) {
+      console.log(error);
+      toast.warning("From CATCH Unable to create answer");
+    }
   }
 
   return (
@@ -51,7 +52,10 @@ export default function SubmitVideoFileModal({ showVideoFileModal, setShowVideoF
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 id="FileUploadFormHeader" className="text-3xl font-semibold">
+                  <h3
+                    id="FileUploadFormHeader"
+                    className="text-3xl font-semibold"
+                  >
                     Submit via File Upload
                   </h3>
                   <button
@@ -65,13 +69,9 @@ export default function SubmitVideoFileModal({ showVideoFileModal, setShowVideoF
                 </div>
                 {/*body*/}
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="relative p-6 flex-auto">
-                    <textarea
-                      placeholder="Paste video files here"
-                      id="fileUpload"
-                      // {...register("answerUrl")}
-                      className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
-                    ></textarea>
+                  <div className="relative m-7 p-6 flex-auto">
+                    <h1 className="text-center"></h1>
+                    <Dropzone />
                     <p className="text-red-500 text-left">
                       {/* {errors.answerUrl?.message} */}
                     </p>
