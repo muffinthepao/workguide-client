@@ -2,8 +2,8 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-export default function Dropzone() {
-  const [files, setFiles] = useState([])
+export default function Dropzone({files, setFiles}) {
+
   const {
     open,
     getRootProps,

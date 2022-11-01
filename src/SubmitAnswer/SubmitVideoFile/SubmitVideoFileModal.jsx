@@ -13,6 +13,7 @@ export default function SubmitVideoFileModal({
   setShowVideoFileModal,
 }) {
   const { questionId } = useParams();
+  const [files, setFiles] = useState([])
 
   const {
     register,
@@ -71,7 +72,7 @@ export default function SubmitVideoFileModal({
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="relative m-7 p-6 flex-auto">
                     <h1 className="text-center"></h1>
-                    <Dropzone />
+                    <Dropzone files={files} setFiles={setFiles}/>
                     <p className="text-red-500 text-left">
                       {/* {errors.answerUrl?.message} */}
                     </p>
