@@ -2,16 +2,10 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { joiResolver } from "@hookform/resolvers/joi";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { useForm } from "react-hook-form";
-
 
 import SubmitUrlModal from "./SubmitUrl/SubmitUrlModal";
 import SubmitVideoFileModal from "./SubmitVideoFile/SubmitVideoFileModal";
-
-
-
 
 export default function AnswerMethodSelection() {
   
@@ -33,7 +27,7 @@ export default function AnswerMethodSelection() {
             </p>
           </div>
           <div className="flex flex-wrap -m-4 text-center">
-            <div className="p-4 md:w-1/3 sm:w-1/2 w-full">
+            <Link to={`/questions/${questionId}/submit-answer/videobooth`} className="p-4 md:w-1/3 sm:w-1/2 w-full">
               <div className="border-2 border-slate-300 text-slate-400 px-4 py-6 rounded-lg hover:scale-105 duration-300 ease-in-out hover:border-yellow-400 hover:text-yellow-400">
                 <FontAwesomeIcon
                   className="mb-3"
@@ -43,7 +37,7 @@ export default function AnswerMethodSelection() {
                 <p className="title-font font-medium text-3xl">Video Booth</p>
                 <p className="leading-relaxed">Guided video booth</p>
               </div>
-            </div>
+            </Link>
             <div className="p-4 md:w-1/3 sm:w-1/2 w-full">
               <div className="border-2 border-slate-300 text-slate-400 px-4 py-6 rounded-lg hover:scale-105 duration-300 ease-in-out hover:border-yellow-400 hover:text-yellow-400">
                 <button type="button" onClick={() => setShowVideoFileModal(true)}>

@@ -28,12 +28,12 @@ function App() {
           <Route path="/questions/:questionId" element={<Question />}/>
           <Route path="/questions/:questionId/answers/:answerId" />
           <Route path="/questions/:questionId/answers/submit-answer" element={<AnswerMethodSelection />} />
+          <Route path="/questions/:questionId/answers/submit-answer/videobooth" element={<VideoBooth />} />
           <Route path="/guides"/>
           <Route path="/guides/:guideId" />
           <Route path="/user" />
           <Route path="/user/questions" />
           <Route path="/user/answers" />
-          <Route path="/videobooth" element={<WebcamStreamCapture />} />
         </Routes>
 
         <ToastContainer />
