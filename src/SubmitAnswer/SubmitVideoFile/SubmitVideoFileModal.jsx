@@ -1,9 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-
-import { joiResolver } from "@hookform/resolvers/joi";
+import getBlobDuration from 'get-blob-duration'
 import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
 import Dropzone from "../../components/Dropzone";
@@ -14,23 +12,28 @@ export default function SubmitVideoFileModal({
 }) {
   const { questionId } = useParams();
   const [files, setFiles] = useState([])
+  const [videoDurations, setVideoDurations] = useState([])
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   // watch,
-  //   formState: { errors },
-  // } = useForm({
-  //   resolver: joiResolver(),
-  //   defaultValues: {},
-  // });
-
-  async function handleSubmit() {
+ async function handleSubmit() {
+    console.log("handleSubmit")
     const userId = 1
-    const blobDurations = [2,2]
+
+    let durations =[]
+  
+    files.forEach(file => {
+      let videoUrl = window.URL.createObjectURL(file)
+
+      getBlobDuration(videoUrl).then(function(videoDuration) {
+        durations.push(videoDuration)
+      });
+
+    })
+
+    setVideoDurations(durations)
+    
     const form = new FormData();
     form.append("userId", userId);
-    form.append("blobDurations", blobDurations)
+    form.append("blobDurations", videoDurations)
     files.forEach((file) => {
       return form.append("file", file);
     });
@@ -38,7 +41,8 @@ export default function SubmitVideoFileModal({
     try {
       const response = await axios.post(`${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers/process-multi`, form);
 
-      if (response.status === 201) {
+      if (response.status === 201 || response.status === 200) {
+        setShowVideoFileModal(false)
         toast.success("Answer created via File Upload");
       } else toast.warning("From TRY Unable to create answer");
     } catch (error) {

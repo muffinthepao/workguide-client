@@ -20,8 +20,13 @@ export default function Dropzone({files, setFiles}) {
     },
     noClick:true,
     noKeyboard: true,
+    // onDrop: acceptedFiles => {
+    //   acceptedFiles.forEach(file => setFiles([...files, file]))
+    // }
     onDrop: acceptedFiles => {
-      acceptedFiles.forEach(file => setFiles([...files, file]))
+      setFiles(acceptedFiles.map(file => Object.assign(file, {
+        preview: URL.createObjectURL(file)
+      })));
     }
   });
 
