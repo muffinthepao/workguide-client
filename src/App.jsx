@@ -10,7 +10,7 @@ import Questions from "./pages/Questions/Questions"
 import AnswerMethodSelection from "./SubmitAnswer/AnswerMethodSelection";
 import VideoBooth from "./SubmitAnswer/VideoBooth/VideoBooth";
 import { AnswerProvider } from "./context/AnswerContext";
-import WebcamStreamCapture from "./pages/webcamtest"
+// import WebcamStreamCapture from "./pages/webcamtest"
 
 import "react-toastify/dist/ReactToastify.css";
 
