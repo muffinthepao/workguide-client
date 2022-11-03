@@ -12,12 +12,6 @@ export default function VideoBooth() {
   const [recordingStatus, setRecordingStatus] = useState("beforeRecord")
   const [notes, setNotes] = useState("Type out your thoughts/notes here...");
 
-  const notepadOne = document.getElementById("notepad-one");
-  const notepadTwo = document.getElementById("notepad-two");
-
-  // notepadOne.value = notes
-  // notepadTwo.value = notes
-
   const nextStep = (e) => {
     setStep(2);
   };
