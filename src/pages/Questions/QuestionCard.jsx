@@ -21,21 +21,21 @@ export default function QuestionCard({ question }) {
     <>
       <div className="py-8 flex flex-wrap md:flex-nowrap space-x-6">
         <div className="md:w-64 :mb-0md mb-6 flex-shrink-0 flex md:flex-col md: space-y-5 sm:flex-row sm">
-          <span className="inline-block p-3 rounded bg-slate-50 text-indigo-500 text-xs font-medium tracking-widest hover:border-2 hover:border-indigo-500 duration-300 ease-in-out overflow-hidden">
+          <span className="inline-block p-3 rounded bg-slate-50 text-indigo-500 text-xs font-medium tracking-widest hover:shadow-lg duration-300 ease-in-out overflow-hidden">
             <FontAwesomeIcon
               className="pr-3"
               icon={icon({ name: "bookmark", style: "regular" })}
             />
             BOOKMARK
           </span>
-          <span className="inline-block p-3 rounded bg-slate-50 text-indigo-500 text-xs font-medium tracking-widest hover:border-2 hover:border-indigo-500 duration-300 ease-in-out">
+          <span className="inline-block p-3 rounded bg-slate-50 text-indigo-500 text-xs font-medium tracking-widest hover:border-1 hover:shadow-lg duration-300 ease-in-out">
             <FontAwesomeIcon
               className="pr-3"
               icon={icon({ name: "chevron-up", style: "solid" })}
             />
             UPVOTE
           </span>
-          <span className="inline-block p-3 rounded bg-slate-50 text-indigo-500 text-xs font-medium tracking-widest hover:border-2 hover:border-yellow-500 duration-300 ease-in-out">
+          <span className="inline-block p-3 rounded text-xs text-gray-500 font-medium tracking-widest duration-300 ease-in-out">
             <FontAwesomeIcon
               className="pr-3"
               icon={icon({ name: "film", style: "solid" })}
@@ -60,7 +60,7 @@ export default function QuestionCard({ question }) {
 
 
         <div className="md:w-64 :mb-0md mb-6 flex-shrink-0 flex md:flex-col md: space-y-5 sm:flex-row sm">
-          <Link to={`/questions/${id}/answers/submit-answer`} className="inline-block p-3 rounded bg-yellow-50 text-yellow-600 text-xs font-medium tracking-widest space-x-6 hover:border-2 hover:border-yellow-500 hover:scale-105 duration-300 ease-in-out">
+          <Link to={`/questions/${id}/answers/submit-answer`} className="inline-block p-3 rounded bg-yellow-50 text-yellow-600 text-xs font-medium tracking-widest space-x-6 hover:shadow-lg hover:border-2 hover:border-yellow-500 hover:scale-105 duration-300 ease-in-out">
             <FontAwesomeIcon
               className="pr-3"
               icon={icon({ name: "plus", style: "solid" })}
