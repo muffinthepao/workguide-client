@@ -24,9 +24,9 @@ export default function VideoBooth() {
       <div className="container px-5 py-24 pb-4 mx-auto">
         {/* <section className="text-gray-600 body-font mx-auto">
           <Stepper activeStep={2}>
-            <Step label="Children Step 1 " />
-            <Step label="Children Step 2" />
-            <Step label="Children Step 3" />
+            <Step label="Step 1 " />
+            <Step label="Step 2" />
+            <Step label="Step 3" />
           </Stepper>
 
       </section> */}
