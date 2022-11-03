@@ -1,5 +1,5 @@
 
-import React, { useEffect, useCallback, useState } from "react";
+import React from "react";
 import { useDropzone } from "react-dropzone";
 
 export default function Dropzone({files, setFiles}) {
@@ -8,11 +8,8 @@ export default function Dropzone({files, setFiles}) {
     open,
     getRootProps,
     getInputProps,
-    acceptedFiles,
+    // acceptedFiles,
     fileRejections,
-    isDragAccept,
-    isFocused,
-    isDragReject,
   } = useDropzone({    
     maxFiles:4,
     accept: {
