@@ -27,7 +27,7 @@ export default function AnswerMethodSelection() {
             </p>
           </div>
           <div className="flex flex-wrap -m-4 text-center">
-            <Link to={`/questions/${questionId}/submit-answer/videobooth`} className="p-4 md:w-1/3 sm:w-1/2 w-full">
+            <Link to={`/questions/${questionId}/answers/submit-answer/videobooth`} className="p-4 md:w-1/3 sm:w-1/2 w-full">
               <div className="border-2 border-slate-300 text-slate-400 px-4 py-6 rounded-lg hover:scale-105 duration-300 ease-in-out hover:border-yellow-400 hover:text-yellow-400">
                 <FontAwesomeIcon
                   className="mb-3"
