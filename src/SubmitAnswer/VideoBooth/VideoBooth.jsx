@@ -4,15 +4,15 @@ import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { useNavigate, useParams } from "react-router-dom";
 
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 // import { Stepper, Step } from "react-form-stepper";
 import { toast } from "react-toastify";
 
 import ScrollDownGif from "../../pages/LandingPage/down-arrow.gif";
 
 export default function VideoBooth() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { questionId } = useParams();
 
   const [step, setStep] = useState(1);
@@ -158,7 +158,7 @@ export default function VideoBooth() {
 
       if (response.status === 200 || response.status === 201) {
         toast.success("Answer Submitted");
-        navigate(`/questions/${questionId}`)
+        navigate(`/questions/${questionId}`);
       }
     } catch (error) {
       console.log(error);
@@ -184,6 +184,11 @@ export default function VideoBooth() {
               onClick={startOver}
               className=" basis-1/3 p-5 m-3 rounded-[12px] border-2 hover:shadow-lg"
             >
+              <FontAwesomeIcon
+                className="mr-3"
+                icon={solid("backward-fast")}
+                style={{ fontSize: "1rem" }}
+              />
               START FROM THE BEGINNING
             </button>
             {/* {submitPending ? (
@@ -195,12 +200,17 @@ export default function VideoBooth() {
                 Pending...
               </button>
             ) : ( */}
-              <button
-                onClick={handleSubmit}
-                className=" basis-1/3 p-5 m-3 rounded-[12px] border-2 hover:shadow-lg  bg-green-400 text-white"
-              >
-                SUBMIT
-              </button>
+            <button
+              onClick={handleSubmit}
+              className=" basis-1/3 p-5 m-3 rounded-[12px] border-2 hover:shadow-lg  bg-green-400 text-white"
+            >
+              <FontAwesomeIcon
+                className="mr-3"
+                icon={solid("paper-plane")}
+                style={{ fontSize: "1rem" }}
+              />
+              SUBMIT
+            </button>
             {/* )} */}
           </div>
         ) : step === 1 ? (
@@ -219,12 +229,19 @@ export default function VideoBooth() {
                 className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
               ></textarea>
             </div>
-            <button
-              onClick={nextStep}
-              className=" p-1 m-3 rounded-[12px] border-2 hover:shadow-lg  bg-green-400 text-white"
-            >
-              PROCEED
-            </button>
+            <div className="flex justify-center">
+              <button
+                onClick={nextStep}
+                className=" p-1 m-3 rounded-[12px] border-2 hover:shadow-lg bg-green-400 text-white flex justify-center gap-3 md:w-2/3"
+              >
+                <p>PROCEED</p>
+                <FontAwesomeIcon
+                  className=""
+                  icon={solid("angle-right")}
+                  style={{ fontSize: "1.5rem" }}
+                />
+              </button>
+            </div>
           </div>
         ) : (
           <>
@@ -249,14 +266,24 @@ export default function VideoBooth() {
                 <div className="flex">
                   <button
                     onClick={back}
-                    className=" basis-1/4 m-3 rounded-[12px] border-2 hover:shadow-lg"
+                    className=" basis-2/4 m-3 rounded-[12px] border-2 hover:shadow-lg"
                   >
+                    <FontAwesomeIcon
+                      className="mr-3"
+                      icon={solid("angle-left")}
+                      style={{ fontSize: "1rem" }}
+                    />
                     BACK TO EXPLAINER
                   </button>
                   <button
                     onClick={record}
-                    className=" basis-3/4 p-5 m-3 rounded-[12px] border-2 hover:shadow-lg  bg-green-400 text-white"
+                    className=" basis-2/4 p-5 m-3 rounded-[12px] border-2 hover:shadow-lg  bg-green-400 text-white"
                   >
+                    <FontAwesomeIcon
+                      className="mr-3"
+                      icon={solid("video")}
+                      style={{ fontSize: "1rem" }}
+                    />
                     RECORD
                   </button>
                 </div>
@@ -267,6 +294,11 @@ export default function VideoBooth() {
                   onClick={stopAndReview}
                   className=" w-50 p-5 m-2 rounded-[12px] border-2 hover:shadow-lg bg-red-500 text-white"
                 >
+                  <FontAwesomeIcon
+                    className="mr-3"
+                    icon={solid("stop")}
+                    style={{ fontSize: "1rem" }}
+                  />
                   STOP & REVIEW
                 </button>
               )}
@@ -277,19 +309,34 @@ export default function VideoBooth() {
                     onClick={back}
                     className=" basis-1/3 m-3 rounded-[12px] border-2 hover:shadow-lg"
                   >
+                    <FontAwesomeIcon
+                      className="mr-3"
+                      icon={solid("angle-left")}
+                      style={{ fontSize: "1rem" }}
+                    />
                     BACK TO EXPLAINER
                   </button>
                   <button
                     onClick={retake}
                     className=" basis-1/3 p-5 m-3 rounded-[12px] border-2 hover:shadow-lg"
                   >
+                    <FontAwesomeIcon
+                      className="mr-3"
+                      icon={solid("repeat")}
+                      style={{ fontSize: "1rem" }}
+                    />
                     RETAKE
                   </button>
                   <button
                     onClick={proceed}
                     className=" basis-1/3 p-5 m-3 rounded-[12px] border-2 hover:shadow-lg  bg-green-400 text-white"
                   >
-                    PROCEED
+                    PROCEED TO NEXT PART
+                    <FontAwesomeIcon
+                      className="ml-3"
+                      icon={solid("angle-right")}
+                      style={{ fontSize: "1rem" }}
+                    />
                   </button>
                 </div>
               )}
