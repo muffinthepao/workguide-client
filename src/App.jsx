@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "./App.css";
 
 import AnswerMethodSelection from "./pages/SubmitAnswer/AnswerMethodSelection"
-import AskQuestion from "./pages/AskQuestion";
+import AskQuestion from "./pages/AskQuestion/AskQuestion";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Navbar from "../src/components/Navbar";
 import Question from "./pages/Question"
