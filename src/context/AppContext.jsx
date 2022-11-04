@@ -13,7 +13,7 @@ export function AppProvider({ children }) {
   const [fetchCategories, setFetchCategories]=useState(false)
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([])
-  const [authPage, setAuthPage] = useState("")
+  const [authPage, setAuthPage] = useState("login")
 
   //get update list of categories from db
   useEffect(() => {

@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const schema = Joi.object ({
+export const SchemaLogin = Joi.object ({
     loginEmail: Joi.string().trim().email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } }).label("Email").required(),
     loginPassword: Joi.string().min(3).label("Password").required(),
 })
