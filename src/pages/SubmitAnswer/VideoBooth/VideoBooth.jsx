@@ -3,23 +3,24 @@ import getBlobDuration from "get-blob-duration";
 import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { useNavigate, useParams } from "react-router-dom";
+import { useApp } from "../../../context/AppContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-// import { Stepper, Step } from "react-form-stepper";
 import { toast } from "react-toastify";
 import ScrollDownGif from "../../LandingPage/down-arrow.gif"
 
 export default function VideoBooth() {
   const navigate = useNavigate();
   const { questionId } = useParams();
+  const { userData } = useApp();
 
   const [step, setStep] = useState(1);
   const [part, setPart] = useState(1);
   const [recordingStatus, setRecordingStatus] = useState("beforeRecord");
   const [notes, setNotes] = useState("Type out your thoughts/notes here...");
 
-  const userId = 1;
+
   const baseAnswerURL = `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers/process-multi`;
 
   const webcamRef = useRef(null);
@@ -143,7 +144,7 @@ export default function VideoBooth() {
 
       const form = new FormData();
       form.append("questionId", questionId);
-      form.append("userId", userId);
+      form.append("userId", userData?.id);
       form.append("blobDurations", blobDuration);
 
       blobArray.forEach((blob) => {

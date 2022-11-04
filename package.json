@@ -23,6 +23,7 @@
     "framer-motion": "^6.5.1",
     "get-blob-duration": "^1.2.0",
     "joi": "^17.6.4",
+    "jwt-decode": "^3.1.2",
     "luxon": "^3.0.4",
     "npm": "^8.19.2",
     "postcss": "^8.4.18",

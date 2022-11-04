@@ -9,7 +9,7 @@ import { Question } from "../AskQuestion/AskQuestionValidation";
 import { toast } from "react-toastify";
 
 export default function AskQuestion() {
-  const { selectedCategories } = useApp();
+  const { selectedCategories, userData } = useApp();
 
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ export default function AskQuestion() {
         `${process.env.REACT_APP_QNS_BASE_URL}/create`,
         {
           title: data.question,
-          userId: 1,
+          userId: userData?.id,
           categories: selectedCategories,
         }
       );

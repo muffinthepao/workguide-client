@@ -12,6 +12,10 @@ import NotFound from "./pages/NotFound/NotFound";
 import Question from "./pages/Question";
 import Questions from "./pages/Questions/Questions";
 import VideoBooth from "./pages/SubmitAnswer/VideoBooth/VideoBooth";
+
+import Auth from "./components/auth/Auth";
+import Guest from "./components/auth/Guest";
+
 import { AppProvider } from "./context/AppContext";
 // import WebcamStreamCapture from "./pages/webcamtest"
 
@@ -25,14 +29,14 @@ function App() {
 
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/auth" element={<AuthPage />}/>
+          <Route path="/auth" element={<Guest component={AuthPage} />}/>
           <Route path="/ask" element={<AskQuestion />} />
           <Route path="/questions" element={<Questions />} />
           <Route path="/questions/:questionId" element={<Question />} />
           <Route path="/questions/:questionId/answers/:answerId" />
           <Route
             path="/questions/:questionId/answers/submit-answer"
-            element={<AnswerMethodSelection />}
+            element={<Auth component={AnswerMethodSelection} />}
           />
           <Route
             path="/questions/:questionId/answers/submit-answer/videobooth"
