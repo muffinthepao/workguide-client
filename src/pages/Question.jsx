@@ -3,10 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useApp } from "../context/AppContext";
 
 import VideoPlayer from "../components/VideoPlayer";
-import { set } from "react-hook-form";
 
 export default function Question() {
   const [question, setQuestion] = useState({})
