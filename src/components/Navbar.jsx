@@ -1,9 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useApp } from "../context/AppContext";
 
 export default function Navbar() {
-  const { setAuthPage, userData } = useApp();
+  const navigate = useNavigate()
+  const { setAuthPage, userData, setUserData } = useApp();
 
+  const logout = () => {
+    localStorage.clear()
+    setUserData(null)
+    navigate('/questions')
+    toast.success("Logout Successful!")
+  }
   return (
     <>
       <nav
@@ -104,14 +112,23 @@ export default function Navbar() {
               </NavLink>
             )}
             {userData && (
-              <NavLink
-                to="/auth"
-                id="navAction"
-                onClick={() => setAuthPage("join")}
-                className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-              >
-                {userData.fullName}
-              </NavLink>
+              <>
+                <button
+                  to="/auth"
+                  id="navAction"
+                  className="mx-3 lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                >
+                  {userData.fullName}
+                </button>
+                <button
+                  to="/auth"
+                  id="navAction"
+                  onClick={logout}
+                  className="mx-3 lg:mx-0 hover:underline bg-slate-300 text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+                >
+                  Logout
+                </button>
+              </>
             )}
           </div>
         </div>

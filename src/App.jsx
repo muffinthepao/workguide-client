@@ -8,6 +8,7 @@ import AskQuestion from "./pages/AskQuestion/AskQuestion";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Navbar from "../src/components/Navbar";
+import NotFound from "./pages/NotFound/NotFound";
 import Question from "./pages/Question";
 import Questions from "./pages/Questions/Questions";
 import VideoBooth from "./pages/SubmitAnswer/VideoBooth/VideoBooth";
@@ -42,6 +43,7 @@ function App() {
           <Route path="/user" />
           <Route path="/user/questions" />
           <Route path="/user/answers" />
+          <Route path= "*" element={<NotFound />}/>
         </Routes>
 
         <ToastContainer />

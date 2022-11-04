@@ -21,7 +21,7 @@ export default function AuthPage() {
   } = useForm({
     resolver: joiResolver(SchemaLogin),
     defaultValues: {
-      loginEmail: "mervin@guide.com",
+      loginEmail: "mervin4@gmail.com",
       loginPassword: "123",
     },
   });
