@@ -3,30 +3,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useApp } from "../context/AppContext";
 
 import VideoPlayer from "../components/VideoPlayer";
+import { set } from "react-hook-form";
 
 export default function Question() {
+  const [question, setQuestion] = useState({})
   // const [fetchAnswers, setFetchAnswers] = useState(false);
-  const [answers, setAnswers] = useState(null);
+  const [answers, setAnswers] = useState([]);
   const { questionId } = useParams();
 
+
   useEffect(() => {
-    const getAnswers = async () => {
-      try {
-        // setFetchAnswers(true);
-        const response = await axios.get(
-          `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers`
-        );
-        setAnswers(response.data);
+    const getQuestion = async () => {
+      const response = await axios.get('http://localhost:8000/api/v1/questions/1')
+      const questionTitle = response.data
+      const answerUrls = response.data.answers
 
-        // setFetchAnswers(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+      let completedAnswers = answerUrls.filter(answer =>answer.answerUrl !== "pending" )
+      setQuestion(questionTitle)
+      setAnswers([...completedAnswers])
 
-    getAnswers().catch(console.error);
+      
+    }
+
+    getQuestion()
   }, [questionId]);
 
   const VideoAnswers = answers?.map((answer) => (
@@ -38,9 +40,7 @@ export default function Question() {
       <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
         <div className="sticky top-16 flex flex-wrap w-full flex-col items-center text-center py-4 border-bottom-width: 4px; bg-white border-b-8 border-b-solid">
           <h1 className="sm:text-sm md:text-2xl font-medium title-font mb-2 text-black">
-            Q: Was there a time when you thought you hired the right person, but
-            your judgement turned out to be wrong? If so, what are the mistakes
-            that I should avoid to make sure that this never happens?
+            Q:{question?.title}
           </h1>
         </div>
 

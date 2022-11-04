@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
+import { useApp } from '../../context/AppContext';
 
 import QuestionCard from './QuestionCard';
 
 export default function Questions() {
-
-  const [questions, setQuestions] = useState([])
+  const {questions, setQuestions} =useApp()
   
   //on page load
   useEffect(() => {
