@@ -1,11 +1,11 @@
 // import axios from "axios";
-import React, {useState, useEffect} from "react";
+import React from "react";
 import Select from "react-select";
 // import { colourOptions } from "../data";
-import { useAnswer } from "../context/AnswerContext";
+import { useApp } from "../context/AppContext";
 
 export default function SelectCategories() {
-  const {categoryList, selectedCategories, setSelectedCategories} = useAnswer()
+  const {categoryList, selectedCategories, setSelectedCategories} = useApp()
 
   return (
     <>
@@ -19,8 +19,9 @@ export default function SelectCategories() {
         isMulti
         name="colors"
         options={categoryList}
-        className="basic-multi-select px-6 pb-6"
+        className="basic-multi-select pb-6"
         classNamePrefix="select"
+        placeholder= 'Select 1 to 3 categories'
       />
     </>
   );

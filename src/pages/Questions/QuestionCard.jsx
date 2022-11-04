@@ -8,14 +8,14 @@ export default function QuestionCard({ question }) {
   const { id, title, createdAt, categories } = question;
 
   const getCategories = categories.map((category) => (
-    <span className="inline-block py-1 px-2 rounded bg-slate-100 text-slate-500 text-xs font-medium tracking-widest">
+    <span key={category.value} className="inline-block py-1 px-2 rounded bg-slate-100 text-slate-500 text-xs font-medium tracking-widest">
       {category.category.toUpperCase()}
     </span>
   ));
 
   const dateFormatted = DateTime.fromISO(createdAt);
   const humanReadable = dateFormatted.toLocaleString(DateTime.DATE_MED);
-  console.log(humanReadable); // =>  October 22, 9:38 PM
+  // console.log(humanReadable); // =>  October 22, 9:38 PM
 
   return (
     <>

@@ -1,48 +1,51 @@
 import React, { useState } from "react";
 import axios from "axios";
-import getBlobDuration from 'get-blob-duration'
+import getBlobDuration from "get-blob-duration";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+import { useApp } from "../../../context/AppContext";
 
-import Dropzone from "../../components/Dropzone";
+import Dropzone from "../../../components/Dropzone";
 
 export default function SubmitVideoFileModal({
   showVideoFileModal,
   setShowVideoFileModal,
 }) {
+  const { userData } = useApp();
   const { questionId } = useParams();
-  const [files, setFiles] = useState([])
-  const [videoDurations, setVideoDurations] = useState([])
+  const [files, setFiles] = useState([]);
+  const [videoDurations, setVideoDurations] = useState([]);
 
- async function handleSubmit() {
-    console.log("handleSubmit")
-    const userId = 1
+  async function handleSubmit() {
+    console.log("handleSubmit");
 
-    let durations =[]
-  
-    files.forEach(file => {
-      let videoUrl = window.URL.createObjectURL(file)
+    let durations = [];
 
-      getBlobDuration(videoUrl).then(function(videoDuration) {
-        durations.push(videoDuration)
+    files.forEach((file) => {
+      let videoUrl = window.URL.createObjectURL(file);
+
+      getBlobDuration(videoUrl).then(function (videoDuration) {
+        durations.push(videoDuration);
       });
+    });
 
-    })
+    setVideoDurations(durations);
 
-    setVideoDurations(durations)
-    
     const form = new FormData();
-    form.append("userId", userId);
-    form.append("blobDurations", videoDurations)
+    form.append("userId", userData?.id);
+    form.append("blobDurations", videoDurations);
     files.forEach((file) => {
       return form.append("file", file);
     });
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers/process-multi`, form);
+      const response = await axios.post(
+        `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers/process-multi`,
+        form
+      );
 
       if (response.status === 201 || response.status === 200) {
-        setShowVideoFileModal(false)
+        setShowVideoFileModal(false);
         toast.success("Answer created via File Upload");
       } else toast.warning("From TRY Unable to create answer");
     } catch (error) {
@@ -50,8 +53,6 @@ export default function SubmitVideoFileModal({
       toast.warning("From CATCH Unable to create answer");
     }
   }
-
-
 
   return (
     <>
@@ -81,7 +82,7 @@ export default function SubmitVideoFileModal({
                 {/*body*/}
                 <form>
                   <div className="relative m-7 p-6 flex-auto">
-                    <Dropzone files={files} setFiles={setFiles}/>
+                    <Dropzone files={files} setFiles={setFiles} />
                     <p className="text-red-500 text-left">
                       {/* {errors.answerUrl?.message} */}
                     </p>
