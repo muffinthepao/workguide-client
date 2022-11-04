@@ -4,7 +4,8 @@ import getBlobDuration from 'get-blob-duration'
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
-import Dropzone from "../../components/Dropzone";
+import Dropzone from "../../../components/Dropzone";
+
 
 export default function SubmitVideoFileModal({
   showVideoFileModal,

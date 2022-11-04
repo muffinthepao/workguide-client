@@ -31,6 +31,9 @@ export default function Navbar() {
                 <NavLink to="/questions" className="inline-block font-bold text-black no-underline hover:underline py-2 px-4 hover:scale-105 duration-300 ease-in-out">QUESTIONS!</NavLink>
               </li>
               <li className="mr-3">
+                <NavLink to="/ask"className="inline-block text-black no-underline hover:underline py-2 px-4 hover:scale-105 duration-300 ease-in-out" >ASK A QNS</NavLink>
+              </li>
+              <li className="mr-3">
                 <NavLink to="/guide"className="inline-block text-black no-underline hover:underline py-2 px-4 hover:scale-105 duration-300 ease-in-out" >BECOME A GUIDE</NavLink>
               </li>
               <li className="mr-3">

@@ -3,12 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
 
-import Navbar from "../src/components/Navbar";
+import AnswerMethodSelection from "./pages/SubmitAnswer/AnswerMethodSelection"
+import AskQuestion from "./pages/AskQuestion";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import Navbar from "../src/components/Navbar";
 import Question from "./pages/Question"
 import Questions from "./pages/Questions/Questions"
-import AnswerMethodSelection from "./SubmitAnswer/AnswerMethodSelection";
-import VideoBooth from "./SubmitAnswer/VideoBooth/VideoBooth";
+import VideoBooth from "./pages/SubmitAnswer/VideoBooth/VideoBooth";
 import { AnswerProvider } from "./context/AnswerContext";
 // import WebcamStreamCapture from "./pages/webcamtest"
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="login" />
           <Route path="join" />
+          <Route path="ask" element={<AskQuestion />}/>
           <Route path="/questions" element={<Questions />} />
           <Route path="/questions/:questionId" element={<Question />}/>
           <Route path="/questions/:questionId/answers/:answerId" />

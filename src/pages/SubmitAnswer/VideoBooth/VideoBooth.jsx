@@ -8,8 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 // import { Stepper, Step } from "react-form-stepper";
 import { toast } from "react-toastify";
-
-import ScrollDownGif from "../../pages/LandingPage/down-arrow.gif";
+import ScrollDownGif from "../../LandingPage/down-arrow.gif"
 
 export default function VideoBooth() {
   const navigate = useNavigate();
