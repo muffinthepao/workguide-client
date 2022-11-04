@@ -1,3 +1,7 @@
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useApp } from "../../context/AppContext";
 import { useForm } from "react-hook-form";
@@ -6,7 +10,8 @@ import { SchemaLogin } from "./LoginValidation";
 import { SchemaJoin } from "./JoinValidation";
 
 export default function AuthPage() {
-  const { authPage, setAuthPage } = useApp();
+  const navigate = useNavigate();
+  const { authPage, setAuthPage, setUserData } = useApp();
 
   const {
     register: registerLogin,
@@ -39,12 +44,81 @@ export default function AuthPage() {
     },
   });
 
-  const onLoginSubmit = (data) => {
-    console.log(data);
+  const onLoginSubmit = async (data) => {
+    try {
+      let response = await axios.post(
+        `${process.env.REACT_APP_USER_BASE_URL}/login`,
+        {
+          email: data.loginEmail,
+          password: data.loginPassword,
+        }
+      );
+      
+
+      if (response.error) {
+        toast.error(response.error);
+        return;
+      }
+
+      if (response.status === 200) {
+        toast.success("Logged-in Successfully");
+        const token = response.data.token
+        const userData = response.data.userData
+        localStorage.setItem("user_token", token)
+
+        setUserData(userData)
+
+        navigate("/questions");
+      }
+
+    } catch (error) {
+      if (error.response.status === 400) {
+        return toast.warning("Email Taken. Please use another email.");
+      }
+
+      console.log(error.response);
+      toast.error("Unable to Register. Please try again later. FROM CATCH");
+    }
+    
   };
 
-  const onJoinSubmit = (data) => {
-    console.log(data);
+  const onJoinSubmit = async (data) => {
+    try {
+      let response = await axios.post(
+        `${process.env.REACT_APP_USER_BASE_URL}/join`,
+        {
+          fullName: data.joinFullName,
+          preferredName: data.joinPreferredName,
+          email: data.joinEmail,
+          password: data.joinPassword,
+          confirmPassword: data.joinConfirmPassword,
+        }
+      );
+      
+
+      if (response.error) {
+        toast.error(response.error);
+        return;
+      }
+
+      if (response.status === 201) {
+        toast.success("Registered Successfully");
+        const token = response.data.token
+        const userData = response.data.userData
+        localStorage.setItem("user_token", token)
+        setUserData(userData)
+
+        navigate("/questions");
+      }
+
+    } catch (error) {
+      if (error.response.status === 400) {
+        return toast.warning("Email Taken. Please use another email.");
+      }
+
+      console.log(error.response);
+      toast.error("Unable to Register. Please try again later. FROM CATCH");
+    }
   };
   return (
     <>

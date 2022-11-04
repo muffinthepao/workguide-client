@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useApp } from "../context/AppContext";
 
 export default function Navbar() {
-  const { setAuthPage } = useApp();
+  const { setAuthPage, userData } = useApp();
 
   return (
     <>
@@ -81,24 +81,38 @@ export default function Navbar() {
                   BECOME A GUIDE
                 </NavLink>
               </li>
-              <li className="mr-3">
-                <NavLink
-                  to="/auth"
-                  onClick={() => setAuthPage("login")}
-                  className="inline-block text-black no-underline hover:underline py-2 px-4 hover:scale-105 duration-300 ease-in-out"
-                >
-                  LOGIN
-                </NavLink>
-              </li>
+              {!userData && (
+                <li className="mr-3">
+                  <NavLink
+                    to="/auth"
+                    onClick={() => setAuthPage("login")}
+                    className="inline-block text-black no-underline hover:underline py-2 px-4 hover:scale-105 duration-300 ease-in-out"
+                  >
+                    LOGIN
+                  </NavLink>
+                </li>
+              )}
             </ul>
-            <NavLink
-              to="/auth"
-              id="navAction"
-              onClick={() => setAuthPage("join")}
-              className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-            >
-              JOIN
-            </NavLink>
+            {!userData && (
+              <NavLink
+                to="/auth"
+                id="navAction"
+                onClick={() => setAuthPage("join")}
+                className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+              >
+                JOIN
+              </NavLink>
+            )}
+            {userData && (
+              <NavLink
+                to="/auth"
+                id="navAction"
+                onClick={() => setAuthPage("join")}
+                className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+              >
+                {userData.fullName}
+              </NavLink>
+            )}
           </div>
         </div>
         <hr className="border-b border-gray-100 opacity-25 my-0 py-0" />

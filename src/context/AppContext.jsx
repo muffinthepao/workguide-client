@@ -14,6 +14,7 @@ export function AppProvider({ children }) {
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([])
   const [authPage, setAuthPage] = useState("login")
+  const [userData, setUserData] = useState(null)
 
   //get update list of categories from db
   useEffect(() => {
@@ -40,6 +41,8 @@ export function AppProvider({ children }) {
     categoryList,
     selectedCategories,
     authPage,
+    userData, 
+    setUserData,
     setCategoryList,
     setSelectedCategories,
     setAuthPage,
