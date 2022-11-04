@@ -7,27 +7,27 @@ import { Link, useParams } from "react-router-dom";
 import VideoPlayer from "../components/VideoPlayer";
 
 export default function Question() {
-  const [fetchAnswers, setFetchAnswers] = useState(false);
+  // const [fetchAnswers, setFetchAnswers] = useState(false);
   const [answers, setAnswers] = useState(null);
   const { questionId } = useParams();
 
   useEffect(() => {
     const getAnswers = async () => {
       try {
-        setFetchAnswers(true);
+        // setFetchAnswers(true);
         const response = await axios.get(
           `${process.env.REACT_APP_QNS_BASE_URL}/${questionId}/answers`
         );
         setAnswers(response.data);
 
-        setFetchAnswers(false);
+        // setFetchAnswers(false);
       } catch (error) {
         console.log(error);
       }
     };
 
     getAnswers().catch(console.error);
-  }, [fetchAnswers]);
+  }, [questionId]);
 
   const VideoAnswers = answers?.map((answer) => (
     <VideoPlayer key={answer.id} answer={answer} />
