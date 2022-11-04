@@ -2,15 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 
-export default function VideoPlayer({ video }) {
-
+export default function VideoPlayer({ answer }) {
 
   return (
     <div className="">
       <video
         className="w-full"
         controls
-        src={video?.answerUrl}
+        src={answer?.answerUrl}
         style={{ width: 720 }}
       ></video>
       <div className="w-full flex flex-row ">

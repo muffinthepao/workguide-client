@@ -14,22 +14,9 @@ export default function Questions() {
         const questions = await axios.get(process.env.REACT_APP_QNS_BASE_URL)
   
           setQuestions(questions.data)
-          // console.log(questions.status)
-          console.log(questions)
-          // console.log("id: ", questions.data[1].id)
-          // console.log("question: ", questions.data[1].title)
-  
-          // const categories = questions.data[1].categories
-        
-          // categories.forEach(category => console.log("category: ", category.category))
-          
-          // const date = questions.data[1].createdAt
-          // const dateFormatted = DateTime.fromISO(date)
-          // const humanReadable = dateFormatted.toLocaleString(DateTime.DATE_MED);
-  
-          // console.log(humanReadable); // =>  October 22, 9:38 PM
 
-        // if (!questions) return null;
+          console.log(questions)
+     
       } catch (error) {
         console.log(error)
       }

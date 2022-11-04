@@ -41,7 +41,7 @@ export function AppProvider({ children }) {
     categoryList,
     selectedCategories,
     authPage,
-    userData, 
+    userData,
     setUserData,
     setCategoryList,
     setSelectedCategories,
