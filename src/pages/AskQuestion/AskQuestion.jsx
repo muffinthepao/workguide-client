@@ -2,21 +2,21 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useForm } from "react-hook-form";
-import { useAnswer } from "../../context/AnswerContext";
+import { useApp } from "../../context/AppContext";
 
 import SelectCategories from "../../components/SelectCategories";
 import { Question } from "../AskQuestion/AskQuestionValidation";
 import { toast } from "react-toastify";
 
 export default function AskQuestion() {
-  const { selectedCategories } = useAnswer();
+  const { selectedCategories } = useApp();
 
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-    control,
+    // control,
     // watch,
     formState: { errors },
   } = useForm({

@@ -1,11 +1,11 @@
 // import axios from "axios";
-import React, {useState, useEffect} from "react";
+import React from "react";
 import Select from "react-select";
 // import { colourOptions } from "../data";
-import { useAnswer } from "../context/AnswerContext";
+import { useApp } from "../context/AppContext";
 
 export default function SelectCategories() {
-  const {categoryList, selectedCategories, setSelectedCategories} = useAnswer()
+  const {categoryList, selectedCategories, setSelectedCategories} = useApp()
 
   return (
     <>

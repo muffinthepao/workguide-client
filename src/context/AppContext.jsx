@@ -1,18 +1,19 @@
 import axios from "axios";
 import { useContext, createContext, useState, useEffect } from "react";
 
-const AnswerContext = createContext({});
+const AppContext = createContext({});
 
 //custom hooh - fuction that requires some stuff
-export function useAnswer() {
-  return useContext(AnswerContext);
+export function useApp() {
+  return useContext(AppContext);
 }
 
-export function AnswerProvider({ children }) {
-  //what Answer related info i want to make available throughout the app
+export function AppProvider({ children }) {
+  //what App related info i want to make available throughout the app
   const [fetchCategories, setFetchCategories]=useState(false)
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([])
+  const [authPage, setAuthPage] = useState("")
 
   //get update list of categories from db
   useEffect(() => {
@@ -38,14 +39,16 @@ export function AnswerProvider({ children }) {
   const value = {
     categoryList,
     selectedCategories,
+    authPage,
     setCategoryList,
-    setSelectedCategories
+    setSelectedCategories,
+    setAuthPage,
   }
   // value - singular. CANNOT use values
   return (
-    <AnswerContext.Provider value={value}>
+    <AppContext.Provider value={value}>
       {children}
-    </AnswerContext.Provider>
+    </AppContext.Provider>
   );
 }
 
