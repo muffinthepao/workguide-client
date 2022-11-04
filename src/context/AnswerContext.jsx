@@ -27,7 +27,6 @@ export function AnswerProvider({ children }) {
         setFetchCategories(true)
       } catch (error) {
         console.log(error)
-        return
       }
     }
 

@@ -1,32 +1,57 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useForm } from "react-hook-form";
 import { useAnswer } from "../../context/AnswerContext";
 
-import SelectCategories from '../../components/SelectCategories'
+import SelectCategories from "../../components/SelectCategories";
 import { Question } from "../AskQuestion/AskQuestionValidation";
-
+import { toast } from "react-toastify";
 
 export default function AskQuestion() {
-  const {selectedCategories} = useAnswer()
-  const question = document.getElementById('message')
+  const { selectedCategories } = useAnswer();
+
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    control,
     // watch,
     formState: { errors },
   } = useForm({
     resolver: joiResolver(Question),
-    defaultValues: {
-      answerUrl: "https://youtu.be/yvoO_ErTy6Q?t=11",
-    },
+    defaultValues: {},
   });
 
-  const onSubmit = () => {
-    console.log(selectedCategories)
-    console.log(question)
-  }
+  const onSubmit = async (data) => {
+    console.log(data);
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_QNS_BASE_URL}/create`,
+        {
+          title: data.question,
+          userId: 1,
+          categories: selectedCategories,
+        }
+      );
+
+      console.log(response);
+
+      if (response.status === 201) {
+        toast.success("Question created!");
+        navigate('/questions')
+      }
+
+      if (response.status === 400) {
+        toast.warning("Unable to create question. Please try again");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.warning("Unable to create question. Please try again");
+    }
+  };
 
   return (
     <>
@@ -50,7 +75,7 @@ export default function AskQuestion() {
                 className="w-full bg-white rounded border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div> */}
-            <div className="relative mb-4">
+            <div className="relative ">
               <textarea
                 placeholder="Your question here..."
                 {...register("question")}
@@ -59,11 +84,36 @@ export default function AskQuestion() {
                 className="w-full bg-white rounded border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
               ></textarea>
             </div>
-            <p className="text-red-500 text-left">
-                      {errors.question?.message}
-                    </p>
+            <p className="text-red-500 text-left mb-4">
+              {errors.question?.message}
+            </p>
             <SelectCategories />
-            <button onClick={handleSubmit(onSubmit)} className="text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg">
+            {/* <Controller
+                name="categories"
+                defaultValue=""
+                // options={[{ value: "", label: "Select Device Type" }, ...categoryList]}
+                control={control}
+                rules={{ required: true }}
+                render={({field}) => (
+
+                  <SelectCategories />
+                )}
+              /> */}
+            {/* <Controller
+              name="categories"
+              control={control}
+              render={({field}) => (
+
+                <SelectCategories />
+              )}
+              /> */}
+            <p className="text-red-500 text-left mb-4">
+              {errors.categories?.message}
+            </p>
+            <button
+              onClick={handleSubmit(onSubmit)}
+              className="text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg"
+            >
               Submit
             </button>
             <p className="text-xs text-gray-500 mt-3">
