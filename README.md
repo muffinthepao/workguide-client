@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+#Workguide
+Navigating through work can be tough.
+Don't go at it alone. Get a local guide.
+___
+App URL: https://main--workguide.netlify.app/
+___
+A site that aims to solve 3 problems
+- Fresh Grads / Fresh Hires get their buring questions about work answered through video answers
+- There is a shortage of career guides/mentors and those that do get a slot, ask the same questions 80% of the time (pareto). This app aims to free up the guides/mentors' time by recording their answer once and uploading it onto the site. Now guides/mentors are able to use their valuable time for the 20% typy of questions
+- Guides/Mentors are great during face-2-face interactions but might be stiff when recording themselves. Hence created a video booth workflow where an answer is broken down into its relevant parts, you record each part - with as many retakes as you want, submit and the app merges the video parts for you
+___
+##Stack
+![login-page](./PERN.png)
+___
+##Dependencies / Libraries
+- axios
+- bcrypt
+- fontawesome
+- imagekit
+- joi
+- jwt / jwt-decode
+- multer
+- react-dropzone
+- react-hook-form
+- react-toastify
+- react-webcam
+- sequelize
+- shotstack
+- tailwindcss
+___
+##Routes
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| ROUTE  | URL                                                     |
+|--------|---------------------------------------------------------|
+| GET    | /categories                                             |
+| GET    | /questions                                              |
+| GET    | /questions/:questionId                                  |
+| POST   | /questions                                              |
+| PUT    | /questions/:questionId                                  |
+| DEL    | /questions/:questionId                                  |
+| GET    | /questions/:questionId/answers                          |
+| POST   | /questions/:questionId/answers/process-multi            |
+| POST   | /questions/shortstack-callback                          |
+| DEL    | /questions/:questionId/answers/:answersId/process-multi |
+| POST   | /questions/:questionId/answers/url-insertion            |
+| PATCH  | /questions/:questionId/answers/:answerId/url-insertion  |
+| DELETE | /questions/:questionId/answers/:answerId/url-insertion  |
+___
+Learning Challenges
+- The main concept of the app - video recording and combining the video parts into one video. Tried it on vanillaJS first then on react.
+- Depending on which Sequelize method you use, the response can vary
+- If you `.findByPk()` if record is not present, it will return NULL
+- If you use `.findAll()` without WHERE parameter, it returns an OBJECT
+- If you use `.findAll()` with WHERE parameter, it returns an ARRAY and further wrapped in a "dataValues" OBJECT
+- The different functions of Sequelize
+- Deeding data using the built in seeding functions
+- Using sequelize
+- Must be an array in the seed file
+- VreatedAt and UpdatedAt cannot be null. You have to see the date to `new Date()`
+- Managed to utilize `useContext()` hook
+- Multer + MultiForm Upload + wait for callback from Shotstack (video merger)
+- Thinking about UX and allowing for users to submit video answers multiple ways - URL, file upload, videoBooth
+- Drag and Drop zone for video file upload
+- Using React Hook Form on 2 separate forms that are present on the same page
+___
+## Still to be solved
+- How does the app handle duplicate questions?
+- Currently retakes are only available at each part. But user should have the flexibility to review their recorded parts at any time and go to the specific part to retake before submitting.
+- Maybe a [Blob database](https://azure.microsoft.com/en-gb/products/storage/blobs/?&ef_id=CjwKCAjw8JKbBhBYEiwAs3sxN3dnObSXFjqeAK3FBYWWvLyqsi_TVXSsWmOqP8iDdoRaw-nHZlI5yxoCj_oQAvD_BwE:G:s&OCID=AIDcmm9uk3nhei_SEM_CjwKCAjw8JKbBhBYEiwAs3sxN3dnObSXFjqeAK3FBYWWvLyqsi_TVXSsWmOqP8iDdoRaw-nHZlI5yxoCj_oQAvD_BwE:G:s&gclid=CjwKCAjw8JKbBhBYEiwAs3sxN3dnObSXFjqeAK3FBYWWvLyqsi_TVXSsWmOqP8iDdoRaw-nHZlI5yxoCj_oQAvD_BwE) can be implemented for videobooth drafts. So users can record at their own pace and dont have to sit through all the parts in one go.
+- Should users be able to get in touch with answer givers?
+- Since the video parts are stored on browser cache, and my demos are all less than 30secs each. We might face an issue when each video part is a max of 1min. Not sure whether chrome will crash
+- currently there are many points of failure for the video booth ask I am using 2 video processing apis with ExpressJs as the server between the Client, ImageKit, and Shotstack. I can lose connectivty to each of those any any point. And the video creation will be unsuccessful
+___
+##Points to improve
+- Created wireframes for project3 but not for this project. Felt myself wasting time refining the design as i was coding along. Sometimes I got confuses on what I wanted or what I was doing.
+- 
