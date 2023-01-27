@@ -18,9 +18,11 @@ function Auth(props) {
     // check if token expired
     // if expired, purge localstorage, redirect to login
     const user = jwt_decode(token)
+
+    console.log(user)
     const now = DateTime.now().toUnixInteger()
 
-    if (user.exp > now) {
+    if (user.exp < now) {
         localStorage.removeItem('user_token')
         return (
             <Navigate to={'/auth'} />

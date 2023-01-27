@@ -1,4 +1,6 @@
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { DateTime } from "luxon";
 import { useContext, createContext, useState, useEffect } from "react";
 
 const AppContext = createContext({});
@@ -15,6 +17,23 @@ export function AppProvider({ children }) {
   const [selectedCategories, setSelectedCategories] = useState([])
   const [authPage, setAuthPage] = useState("login")
   const [userData, setUserData] = useState(null)
+
+  useEffect(() => {
+    const token = localStorage.getItem('user_token')
+
+    if (token) {
+      const user = jwt_decode(token)
+      const now = DateTime.now().toUnixInteger()
+
+      if( user.exp < now) {
+        localStorage.removeItem('user_token')
+        setUserData(null)
+      } else {
+        setUserData(user.data)
+      }
+
+    }
+  }, [])
 
   //get update list of categories from db
   useEffect(() => {
