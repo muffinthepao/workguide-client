@@ -20,7 +20,7 @@ function Auth(props) {
     const user = jwt_decode(token)
     const now = DateTime.now().toUnixInteger()
 
-    if (user.exp < now) {
+    if (user.exp > now) {
         localStorage.removeItem('user_token')
         return (
             <Navigate to={'/auth'} />

@@ -216,11 +216,16 @@ export default function VideoBooth() {
         ) : step === 1 ? (
           <div id="explain" className="mx-auto flex flex-col justify-center">
             <div className="flex justify-center gap-3">
-              <video
+              {/* <video
                 controls
                 style={{ height: "520px", width: "290px" }}
                 src="https://ik.imagekit.io/7m4pg6sx4/AAA_Template/mixkit-waves-in-the-water-1164-medium_7urzHHJCM.mp4?ik-sdk-version=javascript-1.4.3&updatedAt=1667459008535"
-              ></video>
+              ></video> */}
+              <div style={{ height: "520px", width: "290px", background:"black"}}>
+                <div >
+                  <h1 className="text-lg text-white font-semibold ">VIDEO EXPLAINER OF HOW TO RECORD EACH PART OF VIDEO ANSWER</h1>
+                </div>
+              </div>
               <textarea
                 style={{ height: "520px", width: "520px" }}
                 onChange={handleChange}
