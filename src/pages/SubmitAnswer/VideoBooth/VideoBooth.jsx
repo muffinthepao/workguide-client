@@ -223,7 +223,8 @@ export default function VideoBooth() {
               ></video> */}
               <div style={{ height: "520px", width: "290px", background:"black"}}>
                 <div >
-                  <h1 className="text-lg text-white font-semibold ">VIDEO EXPLAINER OF HOW TO RECORD EACH PART OF VIDEO ANSWER</h1>
+                  <h1 className="text-lg text-white font-semibold mt-10 p-5">VIDEO EXPLAINER OF HOW TO RECORD EACH PART OF VIDEO ANSWER</h1>
+                  <h1 className="text-lg text-white font-semibold mt-5 p-5">CANNOT SHOW EXAMPLE AS VIDEO HOSTING SITE ONLY ALLOWS FOR LESS THAN 25MB</h1>
                 </div>
               </div>
               <textarea
