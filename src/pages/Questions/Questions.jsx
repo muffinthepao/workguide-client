@@ -38,7 +38,7 @@ export default function Questions() {
 
         <div className="flex flex-wrap w-full flex-col items-center text-center py-4 border-bottom-width: 4px; border-b-8 border-b-solid">
           <h1 className="sm:text-3xl text-3xl font-medium title-font mb-2 text-black">QUESTIONS</h1>
-          <p className="lg:w-1/2 w-full leading-relaxed text-black">Including the top upoted questions from the SGWork Subreddit</p>
+          <p className="lg:w-1/2 w-full leading-relaxed text-black">Including the voted questions from the SGWork Subreddit</p>
         </div>
 
         <section className="text-gray-600 body-font overflow-hidden">
