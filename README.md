@@ -5,8 +5,8 @@ ___
 App URL: https://main--workguide.netlify.app/
 ___
 A site that aims to solve 3 problems
-- Fresh Grads / Fresh Hires get their buring questions about work answered through video answers
-- There is a shortage of career guides/mentors and those that do get a slot, ask the same questions 80% of the time (pareto). This app aims to free up the guides/mentors' time by recording their answer once and uploading it onto the site. Now guides/mentors are able to use their valuable time for the 20% typy of questions
+- Fresh Grads / Fresh Hires get their burning questions about work answered through video answers
+- There is a shortage of career guides/mentors and those that do get a slot, ask the same questions 80% of the time (Pareto Principle). This app aims to free up the guides/mentors' time by recording their answer once and uploading it onto the site. Now guides/mentors are able to use their valuable time for the 20% type of questions
 - Guides/Mentors are great during face-2-face interactions but might be stiff when recording themselves. Hence created a video booth workflow where an answer is broken down into its relevant parts, you record each part - with as many retakes as you want, submit and the app merges the video parts for you
 ___
 ##Main Functionality
@@ -78,11 +78,11 @@ ___
 Learning Challenges
 - The main concept of the app - video recording and combining the video parts into one video. Tried it on vanillaJS first then on react.
 - Depending on which Sequelize method you use, the response can vary
-- If you `.findByPk()` if record is not present, it will return NULL
+- If you use `.findByPk()` if record is not present, it will return NULL
 - If you use `.findAll()` without WHERE parameter, it returns an OBJECT
 - If you use `.findAll()` with WHERE parameter, it returns an ARRAY and further wrapped in a "dataValues" OBJECT
 - The different functions of Sequelize
-- Deeding data using the built in seeding functions
+- Seeding data using the built in seeding functions
 - Using sequelize
 - Must be an array in the seed file
 - VreatedAt and UpdatedAt cannot be null. You have to see the date to `new Date()`
@@ -99,7 +99,7 @@ ___
 - Should users be able to get in touch with answer givers?
 - Since the video parts are stored on browser cache, and my demos are all less than 30secs each. We might face an issue when each video part is a max of 1min. Not sure whether chrome will crash
 - Give users the opportunity to view a preview of all video parts at the end before submission.
-- currently there are many points of failure for the video booth ask I am using 2 video processing apis with ExpressJs as the server between the Client, ImageKit, and Shotstack. I can lose connectivty to each of those any any point. And the video creation will be unsuccessful
+- currently there are many points of failure for the video booth ask I am using 2 video processing apis with ExpressJs as the server between the Client, ImageKit, and Shotstack. I can lose connectivity to each of those at any point. And the video creation will be unsuccessful
 - 
 ___
 ##Points to improve
